@@ -29,7 +29,7 @@ export const Footer = () => (
               {' '}
               {new Date().getFullYear()}
               {' '}
-              Spencer Sharp. All rights
+              Federico Pomponii. All rights
               reserved.
             </p>
           </div>

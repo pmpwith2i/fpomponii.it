@@ -80,8 +80,8 @@ export default () => (
               During the summer before I turned 18 I decided to move to Milan and to work for Conio, one of the best startup in the world of Bitcoin.
             </p>
             <p>
-              Then I decided to stop working and to start my university career. I started to study Computer Science at the University of Bologna. After two years I decided to back to work while studying,
-              it was very hard to share my time between code and university... but was the best choice in my life.
+              Then I decided to stop working and to start my university career. I started to study Computer Science at the University of Bologna. After two years I decided to go back to work while studying,
+              it was very hard to share my time between code and university... but was the best choice of my life.
               While I'm writing this -after some years of work-  I'm almost at the end of my university career (now I'm studying for a Master Degree in Computer Science), I'm very happy about all the choices I did in the past few years.
               I've the opportunity to work with amazing people and to learn new things every day.
             </p>

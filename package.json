@@ -1,5 +1,7 @@
 {
-  "name": "tailwindui-template",
+  "name": "Federico Pomponii - Personal Website",
+  "start_url": "/",
+  "author": "Federico Pomponii",
   "version": "0.1.0",
   "private": true,
   "scripts": {

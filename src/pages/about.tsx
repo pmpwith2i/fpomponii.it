@@ -6,12 +6,12 @@ import clsx from 'clsx';
 import portraitImage from '@/images/portrait.jpg';
 import { Container } from '@/components/container/Container';
 import {
-  TwitterIcon,
   InstagramIcon,
   GitHubIcon,
   LinkedInIcon,
 } from '@/components/icons/SocialIcons';
 import { ReactNode } from 'react';
+import { LINK_GITHUB, LINK_INSTAGRAM, LINK_LINKEDIN } from '@/utils/consants/social';
 
 const SocialLink = ({
   className, href, children, icon: Icon,
@@ -101,24 +101,21 @@ export default () => (
         </div>
         <div className="lg:pl-20">
           <ul>
-            <SocialLink href="#" icon={TwitterIcon}>
-              Follow on Twitter
-            </SocialLink>
-            <SocialLink href="#" icon={InstagramIcon} className="mt-4">
+            <SocialLink href={LINK_INSTAGRAM} icon={InstagramIcon} className="mt-4">
               Follow on Instagram
             </SocialLink>
-            <SocialLink href="#" icon={GitHubIcon} className="mt-4">
+            <SocialLink href={LINK_GITHUB} icon={GitHubIcon} className="mt-4">
               Follow on GitHub
             </SocialLink>
-            <SocialLink href="#" icon={LinkedInIcon} className="mt-4">
+            <SocialLink href={LINK_LINKEDIN} icon={LinkedInIcon} className="mt-4">
               Follow on LinkedIn
             </SocialLink>
             <SocialLink
-              href="mailto:spencer@planetaria.tech"
+              href="mailto:federico.pomponii@gmail.com"
               icon={MailIcon}
               className="mt-8 border-t border-zinc-100 pt-8 dark:border-zinc-700/40"
             >
-              spencer@planetaria.tech
+              federico.pomponii@gmail.com
             </SocialLink>
           </ul>
         </div>

@@ -6,7 +6,7 @@ import { OuterContainer, InnerContainer } from '@/components/container/Container
 const NavLink = ({ href, children }: {href: string, children: ReactNode | ReactNode[]}) => (
   <Link
     href={href}
-    className="transition hover:text-teal-500 dark:hover:text-teal-400"
+    className="transition hover:text-blue-500 dark:hover:text-blue-400"
   >
     {children}
   </Link>

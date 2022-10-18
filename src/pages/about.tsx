@@ -72,7 +72,7 @@ export default () => (
               Since the first years of my childhood I've been playing with computers.
               I remember that when I was 11 -
               maybe 12 - I started to build themes for website and forums.
-              It was not a common hobby for a child of that age, but that very ugly mix of HTML and CSS made my happy.
+              It was not a common hobby for a child of that age, but that very ugly mix of HTML and CSS made me happy.
             </p>
             <p>
               For some years before starting high school I learned how to use Photoshop and I'd fun with a scripting language: AutoIt (I remember only the name about this, was a loooong time ago:)).

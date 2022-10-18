@@ -2,20 +2,20 @@ import { Container } from '@/components/container/Container';
 import {
   InstagramIcon, GitHubIcon, LinkedInIcon,
 } from '@/components/icons/SocialIcons';
-import Head from 'next/head';
 import { Skills } from '@/components/skills/Skills';
 import { Resume } from '@/components/resume/Resume';
 import { Education } from '@/components/formation/Formation';
 import { SocialLink } from '@/components/icons/SocialLink';
 import { LINK_GITHUB, LINK_INSTAGRAM, LINK_LINKEDIN } from '@/utils/consants/social';
+import { NextSeo } from 'next-seo';
 
 export default () => (
   <div>
-    <Head>
-      <title>
-        Federico Pomponii - Software Engineer, Web Developer, and Designer
-      </title>
-    </Head>
+    <NextSeo
+      title="Federico Pomponii - Software Engineer, Web Developer, and Designer"
+      description="I'm a software engineer, web developer, and designer. I'm currently working @ Confidence Systems as a Frontend engineer."
+    />
+
     <Container className="mt-9">
 
       <div className="max-w-2xl">

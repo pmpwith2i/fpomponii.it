@@ -1,5 +1,4 @@
 import Image from 'next/future/image';
-import Head from 'next/head';
 import Link from 'next/link';
 import clsx from 'clsx';
 
@@ -12,6 +11,7 @@ import {
 } from '@/components/icons/SocialIcons';
 import { ReactNode } from 'react';
 import { LINK_GITHUB, LINK_INSTAGRAM, LINK_LINKEDIN } from '@/utils/consants/social';
+import { NextSeo } from 'next-seo';
 
 const SocialLink = ({
   className, href, children, icon: Icon,
@@ -44,13 +44,11 @@ const MailIcon = (props) => (
 
 export default () => (
   <>
-    <Head>
-      <title>About - Federico Pomponii</title>
-      <meta
-        name="description"
-        content="I’m Federico Pomponii. I work as a frontend engineer at Confidence Systems, a Palo Alto-based startup that is building a new kind of insurance company."
-      />
-    </Head>
+    <NextSeo
+      title="Federico Pomponii - About"
+      description="I'm a software engineer, web developer, and designer. I'm currently working @ Confidence Systems as a Frontend engineer."
+    />
+
     <Container className="mt-16 sm:mt-32">
       <div className="grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12">
         <div className="lg:pl-20">

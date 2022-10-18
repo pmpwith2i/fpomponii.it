@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://fpomponii.it
+
+# Sitemaps
+Sitemap: https://fpomponii.it/sitemap.xml

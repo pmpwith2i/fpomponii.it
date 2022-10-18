@@ -1,7 +1,10 @@
+/* eslint-disable react/no-unescaped-entities */
 import Image from 'next/future/image';
 import Link from 'next/link';
 import clsx from 'clsx';
 
+import { ReactNode } from 'react';
+import { NextSeo } from 'next-seo';
 import portraitImage from '@/images/portrait.jpg';
 import { Container } from '@/components/container/Container';
 import {
@@ -9,9 +12,7 @@ import {
   GitHubIcon,
   LinkedInIcon,
 } from '@/components/icons/SocialIcons';
-import { ReactNode } from 'react';
 import { LINK_GITHUB, LINK_INSTAGRAM, LINK_LINKEDIN } from '@/utils/consants/social';
-import { NextSeo } from 'next-seo';
 
 const SocialLink = ({
   className, href, children, icon: Icon,
@@ -63,37 +64,26 @@ export default () => (
         </div>
         <div className="lg:order-first lg:row-span-2">
           <h1 className="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">
-            I’m Federico Pomponii. I live between Palo Alto - CA and Bologna - Italy
+            I’m Federico Pomponii. Sotware Engineer, in love with Frontend and design.
           </h1>
           <div className="mt-6 space-y-7 text-base text-zinc-600 dark:text-zinc-400">
             <p>
-              I’ve loved making things for as long as I can remember, and
-              wrote my first program when I was 6 years old, just two weeks
-              after my mom brought home the brand new Macintosh LC 550 that I
-              taught myself to type on.
+              In my whole life I've always been passionate about technology and design.
+              Since the first years of my childhood I've been playing with computers.
+              I remember that when I was 11 -
+              maybe 12 - I started to build themes for website and forums.
+              It was not a common hobby for a child of that age, but that very ugly mix of HTML and CSS made my happy.
             </p>
             <p>
-              The only thing I loved more than computers as a kid was space.
-              When I was 8, I climbed the 40-foot oak tree at the back of our
-              yard while wearing my older sister’s motorcycle helmet, counted
-              down from three, and jumped — hoping the tree was tall enough
-              that with just a bit of momentum I’d be able to get to orbit.
+              For some years before starting high school I learned how to use Photoshop and I'd fun with a scripting language: AutoIt (I remember only the name about this, was a loooong time ago:)).
+              Then my love for technology grew up with a course I followed while I was in high school. I started to build web app in Rails and then when I was 17 I finally started to use React and Angular.
+              During the summer before I turned 18 I decided to move to Milan and to work for Conio, one of the best startup in the world of Bitcoin.
             </p>
             <p>
-              I spent the next few summers indoors working on a rocket design,
-              while I recovered from the multiple surgeries it took to fix my
-              badly broken legs. It took nine iterations, but when I was 15 I
-              sent my dad’s Blackberry into orbit and was able to transmit a
-              photo back down to our family computer from space.
-            </p>
-            <p>
-              Today, I’m the founder of Planetaria, where we’re working on
-              civilian space suits and manned shuttle kits you can assemble at
-              home so that the next generation of kids really
-              {' '}
-              <em>can</em>
-              {' '}
-              make it to orbit — from the comfort of their own backyards.
+              Then I decided to stop working and to start my university career. I started to study Computer Science at the University of Bologna. After two years I decided to back to work while studying,
+              it was very hard to share my time between code and university... but was the best choice in my life.
+              While I'm writing this -after some years of work-  I'm almost at the end of my university career (now I'm studying for a Master Degree in Computer Science), I'm very happy about all the choices I did in the past few years.
+              I've the opportunity to work with amazing people and to learn new things every day.
             </p>
           </div>
         </div>

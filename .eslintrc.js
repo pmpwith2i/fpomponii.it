@@ -17,11 +17,19 @@ module.exports = {
   },
   plugins: [
     'react',
+    'import',
     '@typescript-eslint',
   ],
   settings: {
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
+    },
     'import/resolver': {
-      typescript: {}, // this loads <rootdir>/tsconfig.json to eslint
+      typescript: {},
+      node: {
+        extensions: ['.ts', '.tsx'],
+        moduleDirectory: ['src', 'node_modules'],
+      },
     },
   },
   rules: {

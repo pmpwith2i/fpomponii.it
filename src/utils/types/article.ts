@@ -4,4 +4,5 @@ export interface Article {
     title: string;
     date: string;
     description?: string;
+    inProgress?: boolean;
   }

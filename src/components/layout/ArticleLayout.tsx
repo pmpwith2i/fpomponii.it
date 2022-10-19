@@ -1,9 +1,9 @@
-import Head from 'next/head';
 import { useRouter } from 'next/router';
 
 import { formatDate } from '@/lib/formatDate';
 import { Container } from '@/components/container/Container';
 import clsx from 'clsx';
+import { NextSeo } from 'next-seo';
 
 export const Prose = ({ children, className }) => (
   <div className={clsx(className, 'prose dark:prose-invert')}>{children}</div>
@@ -34,10 +34,11 @@ export const ArticleLayout = ({
 
   return (
     <>
-      <Head>
-        <title>{`${meta.title} - Spencer Sharp`}</title>
-        <meta name="description" content={meta.description} />
-      </Head>
+
+      <NextSeo
+        title={`${meta.title} - Federico Pomponii`}
+        description={meta.description}
+      />
       <Container className="mt-16 lg:mt-32">
         <div className="xl:relative">
           <div className="mx-auto max-w-2xl">

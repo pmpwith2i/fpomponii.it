@@ -4,6 +4,7 @@ import { getAllArticles } from '@/lib/getAllArticles';
 import { TEXT_PRIMARY_COLOR, TEXT_SECONDARY_COLOR } from '@/utils/consants/typo';
 import { Article } from '@/utils/types/article';
 import clsx from 'clsx';
+import { NextSeo } from 'next-seo';
 
 export async function getStaticProps() {
   return {
@@ -15,6 +16,10 @@ export async function getStaticProps() {
 
 export default ({ articles }: {articles: Article[]}) => (
   <Container>
+    <NextSeo
+      title="Articles - Federico Pomponii"
+      description="A collection of articles I've written about software engineering, web development, and design."
+    />
     <div className="px-4 pt-16 pb-20 sm:px-6 lg:px-8 lg:pt-24 lg:pb-28">
       <div className="relative mx-auto max-w-lg lg:max-w-7xl">
         <div>
@@ -41,7 +46,7 @@ export default ({ articles }: {articles: Article[]}) => (
                 </a>
                 <div className="mt-3">
                   <a href={`/articles/${article.slug}`} className="text-base font-semibold hover:underline text-blue-500 hover:dark:text-blue-400 hover:text-blue-700">
-                    Read this article ->
+                    Read this article
                   </a>
                 </div>
               </div>

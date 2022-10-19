@@ -1,0 +1,29 @@
+import { ArticleLayout } from '@/components/layout/ArticleLayout'
+import Image from 'next/future/image'
+import designSystem from './planetaria-design-system.png'
+
+export const meta = {
+  author: 'Federico Pomponii',
+  date: '2022-10-18',
+  title: 'How did I started to create this website',
+  inProgress: true,
+  description:
+    'I started to create this website to share my knowledge and my experience with the open source world. I decided to start with something simple, but I wanted to use the latest technologies.',
+}
+
+export default (props) => <ArticleLayout meta={meta} {...props} />
+
+GitHub Repo - [pmpwith2i/fpomponii.it](https://github.com/pmpwith2i/fpomponii.it)
+
+Some days ago I looked at my old website, and I realized that it was time to update it. I started to create this website to share my knowledge and my experience with the open source world. I decided to start with something simple, but I wanted to use the latest technologies.
+The idea behind this new website was to start with something easy to develop and then, incrementally, improve it.
+
+I decided to use [Tailwind CSS](https://tailwindcss.com/) and [Tailwind UI](https://tailwindui.com/) to create the UI of the website, this because Tailwind offers a lot of templates and components, this speed-up the work.
+My website is built with React + Next.Js, I used Next.Js because I wanted to use the SSR for improve my website SEO.
+
+The most interesting part of this website is the blog, right now you're reading my post, written in an .MDX file, and then, transformed in a React component. I used MDX to write my posts, because I wanted to use the power of React inside my posts, and I wanted to use the power of Markdown to write it.
+The issue with this approach is that every time I want to update my blog I've to push my code and restart the development server. The best approach would be to use an Headless CMS like [Contentful](https://www.contentful.com/), but I wanted to keep this website as simple as possible.
+
+I used [Vercel](https://vercel.com/) to deploy my website, this because Vercel offers a lot of features for free, and it's very easy to use.
+
+This article is still a work in progress, I want to share because just right now someone could find it useful, but I want to improve it in the future.

@@ -40,6 +40,7 @@ module.exports = {
     'react/require-default-props': 'off',
     'react/prop-types': 'off',
     'max-len': 'off',
+    'react/no-unescaped-entities': 'off',
     'arrow-body-style': [
       'error',
       'as-needed',

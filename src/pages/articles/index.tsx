@@ -30,8 +30,8 @@ export default ({ articles }: {articles: Article[]}) => (
         </div>
         <div className="mt-6 pt-12 space-y-20 lg:w-8/12">
           {articles.map((article) => (
-            <div key={article.title} className="border-l dark:border-zinc-700 border-zinc-300 ">
-              <div className="rounded p-4 hover:bg-zinc-800">
+            <div key={article.title} className="border-l rounded-sm dark:border-zinc-700 border-zinc-300 ">
+              <div className="rounded p-4 hover:bg-zinc-50 hover:dark:bg-zinc-800">
 
                 <time
                   dateTime={article.date}

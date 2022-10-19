@@ -8,28 +8,8 @@ import { Education } from '@/components/formation/Formation';
 import { SocialLink } from '@/components/icons/SocialLink';
 import { LINK_GITHUB, LINK_INSTAGRAM, LINK_LINKEDIN } from '@/utils/consants/social';
 import { NextSeo } from 'next-seo';
-import { SITE_URL } from '@/utils/consants/env';
 import clsx from 'clsx';
 import { TEXT_PRIMARY_COLOR, TEXT_SECONDARY_COLOR } from '@/utils/consants/typo';
-
-export async function getStaticProps() {
-  const url = `${SITE_URL}/api/articles`;
-  const res = (await fetch(url));
-  if (res.ok) {
-    const data = await res.json();
-    return {
-      props: {
-        notionPage: data,
-      },
-    };
-  }
-
-  return {
-    props: {
-
-    },
-  };
-}
 
 export default (): any => (
   <div>

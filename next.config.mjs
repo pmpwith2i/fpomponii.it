@@ -11,6 +11,9 @@ const nextConfig = {
     newNextLinkBehavior: true,
     scrollRestoration: true,
   },
+  env: {
+    SITE_URL: process.env.SITE_URL ?? 'https://www.fpomponii.it',
+  },
 };
 
 const withMDX = nextMDX({

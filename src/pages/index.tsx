@@ -8,8 +8,30 @@ import { Education } from '@/components/formation/Formation';
 import { SocialLink } from '@/components/icons/SocialLink';
 import { LINK_GITHUB, LINK_INSTAGRAM, LINK_LINKEDIN } from '@/utils/consants/social';
 import { NextSeo } from 'next-seo';
+import { SITE_URL } from '@/utils/consants/env';
+import clsx from 'clsx';
+import { TEXT_PRIMARY_COLOR, TEXT_SECONDARY_COLOR } from '@/utils/consants/typo';
 
-export default () => (
+export async function getStaticProps() {
+  const url = `${SITE_URL}/api/articles`;
+  const res = (await fetch(url));
+  if (res.ok) {
+    const data = await res.json();
+    return {
+      props: {
+        notionPage: data,
+      },
+    };
+  }
+
+  return {
+    props: {
+
+    },
+  };
+}
+
+export default (): any => (
   <div>
     <NextSeo
       title="Federico Pomponii - Software Engineer, Web Developer, and Designer"
@@ -22,10 +44,10 @@ export default () => (
         <h2 className="text-xs text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-200 hover:underline">
           <a href="mailto:federico.pomponii@gmail.com ">federico.pomponii@gmail.com (Mail Me!)</a>
         </h2>
-        <h1 className="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">
+        <h1 className={clsx('text-4xl font-bold tracking-tight sm:text-5xl', TEXT_PRIMARY_COLOR)}>
           Frontend Engineer @ Confidence Systems - Palo Alto, CA
         </h1>
-        <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
+        <p className={clsx('mt-6 text-base text-zinc-600 dark:text-zinc-400', TEXT_SECONDARY_COLOR)}>
           I’m Federico Pomponii, a software engineer and web designer based in Italy.
 
           I’m currently working at Confidence Systems, a Palo Alto-based startup that is building a
@@ -65,15 +87,13 @@ export default () => (
             <Education />
           </div>
         </div>
-        {/* <div className="flex flex-col gap-16">
-          {articles.map((article) => (
+        <div className="flex flex-col gap-16">
+
+          {/* {articles.map((article) => (
             <Article key={article.slug} article={article} />
-          ))}
+          ))} */}
         </div>
-        <div className="space-y-10 lg:pl-16 xl:pl-24">
-          <Newsletter />
-          <Resume />
-        </div> */}
+        <div className="space-y-10 lg:pl-16 xl:pl-24" />
       </div>
     </Container>
   </div>

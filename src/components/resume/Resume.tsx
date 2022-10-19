@@ -2,6 +2,7 @@ import logoEmiliaRomagna from '@/images/logos/emilia_romagna.svg';
 import logoSky from '@/images/logos/sky.png';
 import logoConio from '@/images/logos/conio.webp';
 import logoConfidence from '@/images/logos/confidence.png';
+import logoCogita from '@/images/logos/cogita.svg';
 
 import Image from 'next/image';
 
@@ -16,6 +17,14 @@ interface Experience {
 }
 export const Resume = () => {
   const resume: Experience[] = [
+    {
+      company: './Cogita',
+      where: 'Italy',
+      title: 'Co-Founder',
+      logo: logoCogita,
+      start: '2022',
+      end: 'Present',
+    },
     {
       company: 'Confidence Systems',
       where: 'Palo Alto, CA',
@@ -59,8 +68,8 @@ export const Resume = () => {
       <ol className="mt-6 space-y-4">
         {resume.map((role) => (
           <li key={`${role.title}_${role.company}`} className="flex gap-4">
-            <div className="relative mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
-              <Image src={role.logo} alt={role.title} className="h-7 w-7 rounded-full" unoptimized />
+            <div className="relative mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md bg-zinc-800 shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
+              <Image src={role.logo} alt={role.title} className="h-7 w-7 rounded-full p-2" />
             </div>
             <dl className="flex flex-auto flex-wrap gap-x-2">
               <dt className="sr-only">Company</dt>

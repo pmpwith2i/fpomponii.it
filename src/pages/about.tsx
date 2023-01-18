@@ -47,7 +47,7 @@ export default () => (
   <>
     <NextSeo
       title="Federico Pomponii - About"
-      description="I'm a software engineer, web developer, and designer. I'm currently working @ Confidence Systems as a Frontend engineer."
+      description="I'm a Frontend engineer, web developer, and designer. I'm currently working @ Confidence Systems as a Frontend engineer."
     />
 
     <Container className="mt-16 sm:mt-32">

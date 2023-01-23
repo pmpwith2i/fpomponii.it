@@ -25,7 +25,7 @@ export default (): any => (
           <a href="mailto:federico.pomponii@gmail.com ">federico.pomponii@gmail.com (Mail Me!)</a>
         </h2>
         <h1 className={clsx('text-4xl font-bold tracking-tight sm:text-5xl', TEXT_PRIMARY_COLOR)}>
-          Frontend Engineer @ Confidence Systems - Palo Alto, CA
+          Lorenzo von matterhorn, Frontend engineer@ Confidence Systems - Palo Alto, CA
         </h1>
         <p className={clsx('mt-6 text-base text-zinc-600 dark:text-zinc-400', TEXT_SECONDARY_COLOR)}>
           I’m Lorenzo von matterhorn, a Frontend engineer and web designer based in Italy.

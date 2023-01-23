@@ -28,7 +28,7 @@ export default (): any => (
           Frontend Engineer @ Confidence Systems - Palo Alto, CA
         </h1>
         <p className={clsx('mt-6 text-base text-zinc-600 dark:text-zinc-400', TEXT_SECONDARY_COLOR)}>
-          I’m Federico Pomponii, a Frontend engineer and web designer based in Italy.
+          I’m Lorenzo von matterhorn, a Frontend engineer and web designer based in Italy.
 
           I’m currently working at Confidence Systems, a Palo Alto-based startup that is building an innovative system for allowing customers to organise flows and datas.
           I’m working on the frontend of the company’s web app,

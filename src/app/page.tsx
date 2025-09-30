@@ -1,6 +1,41 @@
 export default function Home() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Federico Pomponii",
+    "jobTitle": "Backend & Solidity Engineer",
+    "url": "https://fpomponii.it",
+    "sameAs": [
+      "https://github.com/pmpwith2i",
+      "https://www.linkedin.com/in/federico-pomponii"
+    ],
+    "alumniOf": {
+      "@type": "EducationalOrganization",
+      "name": "University of Bologna"
+    },
+    "knowsAbout": [
+      "Solidity",
+      "Smart Contracts",
+      "DeFi",
+      "Blockchain",
+      "Web3",
+      "TypeScript",
+      "React",
+      "Node.js",
+      "AWS",
+      "Docker"
+    ],
+    "description": "Backend & Solidity Engineer with experience in Web3, DeFi, and smart contract development. From Silicon Valley tech lead to blockchain engineer.",
+    "email": "federico.pomponii@gmail.com"
+  };
+
   return (
-    <div className="relative z-10 min-h-screen">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <div className="relative z-10 min-h-screen">
       {/* Sticky Navigation */}
       <nav className="sticky top-0 z-50 backdrop-blur-md bg-[#f5ebe0]/80 border-b-3 border-gray-800 game-card">
         <div className="max-w-6xl mx-auto px-6 py-4">
@@ -393,6 +428,7 @@ export default function Home() {
           </p>
         </div>
       </footer>
-    </div>
+      </div>
+    </>
   );
 }

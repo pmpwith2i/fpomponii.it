@@ -19,6 +19,16 @@ export default function Home() {
       {/* Hero Section */}
       <header id="about" className="text-center py-16 px-6">
         <div className="max-w-4xl mx-auto">
+          {/* Profile Picture */}
+          <div className="flex justify-center mb-6">
+            <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-gray-800 shadow-lg">
+              <img
+                src="/me.JPG"
+                alt="Federico Pomponii"
+                className="w-full h-full object-cover grayscale"
+              />
+            </div>
+          </div>
 
           <h1 className="text-5xl md:text-7xl font-bold mb-2 text-pixel-shadow">
             FEDERICO POMPONII

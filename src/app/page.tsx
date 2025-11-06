@@ -138,7 +138,7 @@ export default function Home() {
                   <ul className="text-xs text-gray-700 font-mono space-y-1 list-disc list-inside">
                     <li>Promoted to Tech Lead & Head of Architecture</li>
                     <li>Led DevOps team, reduced AWS costs by 50%</li>
-                    <li>Built public SDK generating $10M+ revenue</li>
+                    <li>Built public SDK generating millions of revenue</li>
                     <li>Rebuilt legacy frontend with React & Next.js</li>
                     <li>Implemented QA automation, testing infrastructure, and LLM features</li>
                   </ul>

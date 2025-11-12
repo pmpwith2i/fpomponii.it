@@ -147,7 +147,7 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="h-screen flex px-8 py-8 flex-col w-screen justify-center max-w-7xl mx-auto space-y-4 font-mono">
+      <div className="min-h-screen flex px-8 py-8 flex-col w-screen justify-center max-w-7xl mx-auto space-y-4 font-mono">
         <div className="max-w-4xl">
           <h1 className="text-4xl font-bold mt-12 mb-6 underline font-sans">
             Federico Pomponii.

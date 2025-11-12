@@ -1,3 +1,51 @@
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title:
+    "Federico Pomponii - Full Stack Engineer - React, Node.Js, Solidity, Web3 & DeFi",
+  description:
+    "Full Stack Engineer with experience in Web3, DeFi, and smart contract development. From Silicon Valley tech lead to blockchain engineer, building clean architecture for backend systems and smart contracts.",
+  openGraph: {
+    title:
+      "Federico Pomponii - Full Stack Engineer - React, Node.Js, Solidity, Web3 & DeFi",
+    description:
+      "Full Stack Engineer with experience in Web3, DeFi, and smart contract development. From Silicon Valley tech lead to blockchain engineer, building clean architecture for backend systems and smart contracts.",
+    url: "https://fpomponii.it",
+    siteName: "fpomponii.it",
+    images: [
+      {
+        url: "https://fpomponii.it/me.JPG",
+        width: 800,
+        height: 600,
+        alt: "Federico Pomponii",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  keywords: [
+    "Full Stack Engineer",
+    "React",
+    "Node.Js",
+    "Solidity",
+    "Web3",
+    "DeFi",
+    "Smart Contracts",
+    "Blockchain",
+    "TypeScript",
+    "Next.js",
+    "AWS",
+    "Docker",
+    "Italy",
+    "Software Developer",
+    "Teramo",
+    "Tech Lead",
+    "Bologna",
+    "University of Bologna",
+    "Silicon Valley",
+  ],
+};
+
 export default function Home() {
   const jsonLd = {
     "@context": "https://schema.org",
@@ -5,7 +53,7 @@ export default function Home() {
     name: "Federico Pomponii",
     givenName: "Federico",
     familyName: "Pomponii",
-    jobTitle: "Full Stack Engineer - Web3 & Smart Contracts",
+    jobTitle: "Full Stack Engineer - React, Node.Js, Solidity, Web3 & DeFi",
     url: "https://fpomponii.it",
     image: "https://fpomponii.it/me.JPG",
     sameAs: [
@@ -99,21 +147,29 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="h-screen flex flex-col w-screen justify-center max-w-7xl mx-auto space-y-4">
+      <div className="h-screen flex px-8 py-8 flex-col w-screen justify-center max-w-7xl mx-auto space-y-4 font-mono">
         <div className="max-w-4xl">
-          <h1 className="text-4xl font-bold mt-12 mb-6 underline">
+          <h1 className="text-4xl font-bold mt-12 mb-6 underline font-sans">
             Federico Pomponii.
           </h1>
-          <h2 className="text-2xl font-semibold mb-4">
+          <h2 className="text-2xl font-semibold mb-4 font-sans">
             Full Stack Engineer - React, Node.Js, Solidity, Web3 & DeFi.
           </h2>
           <div className="space-y-2 text-gray-600">
-          <p className="text-lg">
-            I started coding when I was 16 and never stopped since then. For most of my years, I worked as a full stack engineer and tech lead in Silicon Valley startups, building scalable backend systems and web applications. In recent years, I shifted my focus to blockchain technology, specializing in smart contract development and decentralized finance (DeFi) applications.
-          </p>
-          <p className="text-lg">
-            The journey through the web3 world is fascinating for me. Math, cryptography, and finance are what I'm studying now, taking a step back from the fancy world of frameworks and libraries to focus on the core principles that make decentralized applications possible.
-          </p>
+            <p className="text-lg">
+              I started coding when I was 16 and never stopped since then. For
+              most of my years, I worked as a full stack engineer and tech lead
+              in Silicon Valley startups, building scalable backend systems and
+              web applications. In recent years, I shifted my focus to
+              blockchain technology, specializing in smart contract development
+              and decentralized finance (DeFi) applications.
+            </p>
+            <p className="text-lg">
+              The journey through the web3 world is fascinating for me. Math,
+              cryptography, and finance are what I{'\''}m studying now, taking a step
+              back from the fancy world of frameworks and libraries to focus on
+              the core principles that make decentralized applications possible.
+            </p>
           </div>
         </div>
 

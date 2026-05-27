@@ -34,18 +34,22 @@ Formally, you can think of the agent loop as a partially observable control proc
 
 Let:
 
-- S be the latent system state
-- O_t be observations at time t (user input + tool outputs)
-- A_t be actions (tool calls)
-- pi(A_t | H_t) the model policy conditioned on history H_t = (O_1...O_t)
+- $S$ be the latent system state
+- $O_t$ be observations at time $t$ (user input + tool outputs)
+- $A_t$ be actions (tool calls)
+- $\pi(A_t \mid H_t)$ be the model policy conditioned on history $H_t = (O_1, \dots, O_t)$
 
-If an attacker can inject delta O_t into observations, then they can shift the policy distribution:
+If an attacker can inject $\Delta O_t$ into observations, then they can shift the policy distribution:
 
-D_KL(pi(.|H_t) || pi(.|H_t + delta O_t))
+$$
+D_{\mathrm{KL}}\!\left(\pi(\cdot \mid H_t)\;\|\;\pi(\cdot \mid H_t + \Delta O_t)\right)
+$$
 
-Your security objective is to minimize expected harmful action probability under bounded adversarial perturbation:
+Your security objective is to minimize expected harmful-action probability under bounded adversarial perturbation:
 
-min_controls E[max_\{delta O in B\} P(harmful_action | H + delta O)]
+$$
+\min_{\mathcal{C}}\;\mathbb{E}\!\left[\max_{\Delta O\in\mathcal{B}}\;\Pr\!\left(\text{harmful\_action}\mid H+\Delta O\right)\right]
+$$
 
 This is not just theory. It maps directly to engineering controls:
 

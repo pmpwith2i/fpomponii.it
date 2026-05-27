@@ -1,4 +1,6 @@
 import { Metadata } from "next";
+import Link from "next/link";
+import { formatPostDate, getBlogPosts } from "@/lib/blog";
 
 export const metadata: Metadata = {
   title:
@@ -47,6 +49,7 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
+  const posts = getBlogPosts();
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -147,8 +150,8 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="min-h-screen flex px-8 py-8 flex-col w-screen justify-center max-w-7xl mx-auto space-y-4 font-mono">
-        <div className="max-w-4xl">
+      <main className="min-h-screen flex w-full px-8 py-8 flex-col justify-center max-w-7xl mx-auto space-y-16 font-mono">
+        <section className="max-w-4xl space-y-6">
           <h1 className="text-4xl font-bold mt-12 mb-6 underline font-sans">
             Federico Pomponii.
           </h1>
@@ -171,10 +174,7 @@ export default function Home() {
               the core principles that make decentralized applications possible.
             </p>
           </div>
-        </div>
 
-        <div>
-          {/* Links Section */}
           <div className="flex items-center justify-start gap-3 text-sm font-mono">
             <a
               href="https://github.com/pmpwith2i"
@@ -201,8 +201,58 @@ export default function Home() {
               Email
             </a>
           </div>
-        </div>
-      </div>
+        </section>
+
+        <section
+          aria-labelledby="blog-heading"
+          className="grid w-full max-w-4xl gap-8 border-t border-black/10 pt-12 md:grid-cols-[9rem_1fr]"
+        >
+          <h2
+            id="blog-heading"
+            className="text-sm font-normal uppercase tracking-[0.22em] text-gray-500"
+          >
+            <Link
+              href="/blog"
+              className="transition-colors hover:text-black hover:underline"
+            >
+              Blog
+            </Link>
+          </h2>
+
+          {posts.length > 0 ? (
+            <ol className="divide-y divide-black/10">
+              {posts.map((post, index) => (
+                <li
+                  key={post.slug}
+                  className="grid gap-3 py-5 first:pt-0 sm:grid-cols-[4.5rem_1fr_auto] sm:items-baseline"
+                >
+                  <span className="text-sm tabular-nums text-gray-400">
+                    {String(index + 1).padStart(2, "0")} -
+                  </span>
+                  <h3 className="text-lg font-normal leading-snug text-black">
+                    <Link
+                      href={`/blog/${post.slug}`}
+                      className="underline-offset-4 transition-colors hover:underline"
+                    >
+                      {post.title}
+                    </Link>
+                  </h3>
+                  <time
+                    className="text-sm tabular-nums text-gray-500"
+                    dateTime={post.date}
+                  >
+                    {formatPostDate(post.date)}
+                  </time>
+                </li>
+              ))}
+            </ol>
+          ) : (
+            <p className="max-w-xl text-lg leading-relaxed text-gray-500">
+              No published notes yet.
+            </p>
+          )}
+        </section>
+      </main>
     </>
   );
 }

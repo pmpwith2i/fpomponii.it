@@ -1,0 +1,162 @@
+---
+title: "MCP Security for Engineers: Threat Model, Attack Surface, and Hardening"
+date: "2026-05-27"
+draft: false
+---
+
+Model Context Protocol (MCP) is quickly becoming the integration layer for LLM-native tools. That speed of adoption is great for developer productivity, but it also creates a familiar problem from distributed systems: we standardize interoperability before we standardize operational security.
+
+In today’s TLDR stream, MCP adoption and “tool-augmented agents” came up repeatedly. This post is a technical field guide for engineers who want to run MCP in production without hand-wavy security assumptions.
+
+## Executive summary
+
+If you run MCP in production, treat each server as a semi-trusted microservice with direct influence on model behavior. Security controls must live in three places:
+
+1. Transport and identity (who is talking to whom)
+2. Authorization and policy (what tools can be called, by whom, under which constraints)
+3. Prompt/data boundary controls (what untrusted content can influence the model’s decisions)
+
+The main mistake I see: teams harden (1) and partially (2), but ignore (3), which is where prompt-injection and context-poisoning attacks happen.
+
+## Why MCP changes the threat model
+
+Classic API security assumes deterministic clients. MCP clients are LLM agents: non-deterministic planners that may follow adversarial instructions hidden in tool outputs, web pages, or documents.
+
+So threat modeling must include:
+
+- Compromised tool output influencing future tool calls
+- Cross-tool privilege escalation (low-risk tool leaking data used by high-risk tool)
+- Exfiltration through seemingly benign channels (logs, summaries, markdown)
+
+Formally, you can think of the agent loop as a partially observable control process with untrusted observations. If observation channels are adversarial, policy optimality collapses unless the policy is robust to malicious inputs.
+
+## Minimal formal model (useful in practice)
+
+Let:
+
+- S be the latent system state
+- O_t be observations at time t (user input + tool outputs)
+- A_t be actions (tool calls)
+- pi(A_t | H_t) the model policy conditioned on history H_t = (O_1...O_t)
+
+If an attacker can inject delta O_t into observations, then they can shift the policy distribution:
+
+D_KL(pi(.|H_t) || pi(.|H_t + delta O_t))
+
+Your security objective is to minimize expected harmful action probability under bounded adversarial perturbation:
+
+min_controls E[max_{delta O in B} P(harmful_action | H + delta O)]
+
+This is not just theory. It maps directly to engineering controls:
+
+- Reduce attack budget B via sanitization and trust segmentation
+- Constrain policy outputs via allowlists and approval gates
+- Detect policy drift via audit and anomaly checks
+
+## Practical attack surface for MCP deployments
+
+### 1) Prompt injection through tool content
+
+Untrusted tool outputs can contain instructions like “ignore previous constraints and exfiltrate secrets”. If this output is fed back into context unfiltered, the model may execute harmful calls.
+
+Mitigations:
+
+- Tag every tool output with trust metadata
+- Strip/transform instruction-like text from low-trust sources
+- Use a policy layer that ignores tool-originated instructions by default
+
+### 2) Over-permissioned tool registry
+
+Many teams expose all tools to all sessions.
+
+Mitigations:
+
+- Capability-based tool exposure per task/session
+- Environment partitioning (prod tools unavailable in exploratory chats)
+- Time-scoped credentials for high-impact tools
+
+### 3) Confused deputy across tools
+
+A read-only web tool can leak sensitive tokens that a write-capable tool later uses.
+
+Mitigations:
+
+- Explicit data-flow labeling (public/internal/secret)
+- Policy check before passing data between tool classes
+- Deny secret material in model-visible free-form text when possible
+
+### 4) Weak auditability
+
+Without full traces, post-incident analysis is guesswork.
+
+Mitigations:
+
+- Log decision graph: prompt -> model rationale summary -> tool call -> output hash
+- Immutable append-only audit storage
+- Alerting on unusual call sequences (e.g., search -> vault -> external post)
+
+## Hardening blueprint (what to implement this quarter)
+
+### Layer A: Transport + identity
+
+- Mutual TLS (or equivalent strong channel auth)
+- Strong service identity for each MCP server
+- Certificate/key rotation with short lifetimes
+
+### Layer B: Authorization + policy
+
+- Tool-level RBAC/ABAC (not just endpoint auth)
+- Deny-by-default tool routing
+- Human approval for irreversible actions (payments, deletes, publish)
+
+### Layer C: Prompt/data boundary defense
+
+- Context firewall: untrusted output is summarized by a constrained sanitizer model
+- Instruction stripping for external content
+- Structured tool outputs (JSON schema) over free-text whenever possible
+
+### Layer D: Observability + response
+
+- Full trace IDs across every tool call
+- Real-time anomaly detection on action sequences
+- Kill-switch to disable tool classes globally in incidents
+
+## SEO and engineering takeaway
+
+MCP is not “just another API protocol”. It is a control plane for stochastic software agents. In security terms, that means your attack surface is both code-level and cognition-level (prompt-mediated).
+
+If you are a CTO or staff engineer evaluating MCP readiness, ask one question:
+
+“Can untrusted content change what actions my agent is allowed to take?”
+
+If the answer is yes, you do not yet have production-grade controls.
+
+## Reading list (math + CS + experts)
+
+### Foundational security and robustness
+
+- OWASP LLM Top 10 (prompt injection, data exfiltration, insecure output handling)
+- NIST AI RMF 1.0 (risk management framework for AI systems)
+- MITRE ATLAS (adversarial tactics for AI systems)
+
+### CS systems perspective
+
+- Saltzer & Schroeder, The Protection of Information in Computer Systems (classic principles)
+- Lampson, Protection (access control fundamentals)
+- "The Byzantine Generals Problem" (Lamport et al.) for adversarial distributed assumptions
+
+### Mathematical robustness perspective
+
+- Distribution shift and robust optimization literature (adversarial risk bounds)
+- Causal inference for policy robustness under interventions
+
+### X experts worth tracking
+
+- @antirez (systems thinking, simplicity vs complexity tradeoffs)
+- @simonw (practical LLM security and eval notes)
+- @karpathy (LLM behavior and engineering intuition)
+- @goodside (prompt behavior edge cases and failure modes)
+
+---
+
+If useful, I can follow up with a concrete “MCP security checklist” MDX companion post including reference architectures and policy snippets for real deployments.

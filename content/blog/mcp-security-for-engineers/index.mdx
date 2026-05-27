@@ -141,54 +141,30 @@ If you are a CTO or staff engineer evaluating MCP readiness, this is the questio
 
 If the answer is yes, you do not yet have production-grade controls.
 
-## References (formulas, papers, and standards)
+## Reading list (math + CS + experts)
 
-Below are the concrete references behind the formulas and security recommendations used in this article.
+### Foundational security and robustness
 
-### Formal/mathematical references
+- OWASP LLM Top 10 (prompt injection, data exfiltration, insecure output handling)
+- NIST AI RMF 1.0 (risk management framework for AI systems)
+- MITRE ATLAS (adversarial tactics for AI systems)
 
-[1] Cover, T. M., & Thomas, J. A. *Elements of Information Theory* (2nd ed., 2006). Wiley.  
-Official publisher: [Wiley book page](https://onlinelibrary.wiley.com/doi/book/10.1002/047174882X).  
-(Definition and interpretation of KL divergence used in the policy-shift expression.)
+### CS systems perspective
 
-[2] Ben-Tal, A., El Ghaoui, L., & Nemirovski, A. *Robust Optimization* (2009). Princeton University Press.  
-Official publisher: [Princeton University Press](https://press.princeton.edu/books/hardcover/9780691143682/robust-optimization).  
-(Worst-case optimization framework matching the inner maximization over perturbations.)
+- Saltzer & Schroeder, The Protection of Information in Computer Systems (classic principles)
+- Lampson, Protection (access control fundamentals)
+- "The Byzantine Generals Problem" (Lamport et al.) for adversarial distributed assumptions
 
-[3] Duchi, J., Hashimoto, T., & Namkoong, H. (2021). *Distributionally Robust Losses Against Mixture Covariate Shifts*. *Operations Research*, 69(5), 1559–1574.  
-Official publication: [INFORMS / Operations Research](https://doi.org/10.1287/opre.2021.2140).  
-(Distribution shift / robust objective intuition for bounded adversarial uncertainty sets.)
+### Mathematical robustness perspective
 
-[4] Kaelbling, L. P., Littman, M. L., & Cassandra, A. R. (1998). *Planning and Acting in Partially Observable Stochastic Domains*. *Artificial Intelligence*, 101(1–2), 99–134.  
-Official publication: [ScienceDirect](https://doi.org/10.1016/S0004-3702(98)00023-X).  
-(POMDP framing for decision-making under uncertain and potentially corrupted observations.)
+- Distribution shift and robust optimization literature (adversarial risk bounds)
+- Causal inference for policy robustness under interventions
 
-### Security systems references
+### X experts worth tracking
 
-[5] Saltzer, J. H., & Schroeder, M. D. (1975). *The Protection of Information in Computer Systems*. *Proceedings of the IEEE*, 63(9), 1278–1308.  
-Official publication: [IEEE Xplore](https://ieeexplore.ieee.org/document/1451869).  
-(Least privilege, complete mediation, and fail-safe defaults mapped to tool policy design.)
-
-[6] Lampson, B. W. (1971). *Protection*. *Proceedings of the 5th Princeton Symposium on Information Sciences and Systems*.  
-Accessible copy (Microsoft Research): [Protection (PDF)](https://www.microsoft.com/en-us/research/uploads/prod/2016/12/Protection.pdf).  
-(Access-control and capability-model foundations relevant to MCP tool exposure.)
-
-[7] Lamport, L., Shostak, R., & Pease, M. (1982). *The Byzantine Generals Problem*. *ACM Transactions on Programming Languages and Systems*, 4(3), 382–401.  
-Official publication: [ACM Digital Library](https://doi.org/10.1145/357172.357176).  
-(Adversarial distributed assumptions useful for cross-service MCP trust boundaries.)
-
-### Practical security guidance
-
-[8] OWASP. *OWASP Top 10 for LLM Applications* (latest).  
-Official project: [OWASP Top 10 for LLM Applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/).  
-(Prompt injection, insecure output handling, excessive agency.)
-
-[9] NIST. *AI Risk Management Framework (AI RMF 1.0)*.  
-Official publication: [NIST AI RMF 1.0](https://www.nist.gov/itl/ai-risk-management-framework).
-
-[10] MITRE. *ATLAS: Adversarial Threat Landscape for Artificial-Intelligence Systems*.  
-Official framework: [MITRE ATLAS](https://atlas.mitre.org/).
+- @antirez (systems thinking, simplicity vs complexity tradeoffs)
+- @simonw (practical LLM security and eval notes)
+- @karpathy (LLM behavior and engineering intuition)
+- @goodside (prompt behavior edge cases and failure modes)
 
 ---
-
-If useful, I can follow up with a concrete “MCP security checklist” MDX companion post including reference architectures and policy snippets for real deployments.

@@ -36,7 +36,7 @@ export default function BlogPage() {
                 <h2 className="text-xl font-normal leading-snug text-black">
                   <Link
                     href={`/blog/${post.slug}`}
-                    className="underline-offset-4 transition-colors hover:underline"
+                    className="block underline-offset-4 transition-colors hover:underline"
                   >
                     {post.title}
                   </Link>

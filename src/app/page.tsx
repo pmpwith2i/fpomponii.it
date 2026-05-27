@@ -232,7 +232,7 @@ export default function Home() {
                   <h3 className="text-lg font-normal leading-snug text-black">
                     <Link
                       href={`/blog/${post.slug}`}
-                      className="underline-offset-4 transition-colors hover:underline"
+                      className="block underline-offset-4 transition-colors hover:underline"
                     >
                       {post.title}
                     </Link>

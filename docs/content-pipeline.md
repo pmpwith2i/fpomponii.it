@@ -76,6 +76,10 @@ Struttura minima:
 7. Reading list (math + CS + X experts)
 8. Conclusione con next action concreta
 
+Voice rule (obbligatoria):
+- Scrivere sempre in prima persona, in modo che il lettore percepisca chiaramente Federico come autore.
+- Evitare stile impersonale o neutro da "report automatico".
+
 ## 5) Quality gate pre-publish
 
 Checklist:

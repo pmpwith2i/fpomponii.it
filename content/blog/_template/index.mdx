@@ -1,8 +1,69 @@
 ---
-title: "Your post title"
+title: "[Working title]"
 date: "2026-05-27"
 draft: true
 ---
 
-Write the article in MDX here. Remove `draft: true` when it is ready to appear
-in the homepage blog list.
+## Hook tecnico
+
+[In prima persona: descrivo un problema reale che ho visto in produzione o in fase di design.]
+
+## Executive summary
+
+In questo articolo spiego [tema] con un taglio operativo: cosa funziona, cosa non funziona, quali tradeoff considero critici.
+
+## Formal model
+
+Definisco il problema in termini formali.
+
+Inline example: $x_t = f(x_{t-1}, u_t)$
+
+Block example:
+
+$$
+\min_{\theta} \; \mathbb{E}_{(x,y)\sim\mathcal{D}}\big[\ell(f_\theta(x), y)\big]
+$$
+
+## Analisi tecnica (architettura / attack surface)
+
+- Assunzioni
+- Failure mode
+- Vincoli operativi
+
+## Design rules / checklist
+
+1. [Regola 1]
+2. [Regola 2]
+3. [Regola 3]
+
+## Tradeoff
+
+- Latenza vs accuratezza
+- Costo vs robustezza
+- Velocità di delivery vs sicurezza
+
+## Reading list (math + CS + X experts)
+
+### Math
+- [Fonte 1]
+- [Fonte 2]
+
+### Computer Science
+- [Fonte 1]
+- [Fonte 2]
+
+### Experts on X
+- [Esperto 1 + insight]
+- [Esperto 2 + insight]
+
+## Conclusione
+
+In sintesi, il criterio che uso personalmente per decidere è [criterio].
+
+---
+
+Note editoriali obbligatorie:
+- Scrivere sempre in prima persona ("io", "nel mio lavoro", "quando progetto...").
+- Evitare tono generico impersonale.
+- Mantenere precisione tecnica e chiarezza didattica.
+- Quando pronto, impostare `draft: false`.

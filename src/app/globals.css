@@ -20,6 +20,12 @@ html {
   scroll-behavior: smooth;
 }
 
+.katex-display {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
 body {
   background: var(--color-white);
   color: var(--text-dark);

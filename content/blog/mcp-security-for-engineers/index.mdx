@@ -1,142 +1,274 @@
 ---
 title: "MCP Security for Engineers: Threat Model, Attack Surface, and Hardening"
 date: "2026-05-27"
+description: "How I threat-model and harden MCP systems in production: trust boundaries, tool authorization, prompt injection, observability, and practical controls."
 draft: false
 ---
 
-Model Context Protocol (MCP) is quickly becoming the integration layer for LLM-native tools. That speed is great for productivity, but it also recreates a classic distributed-systems mistake: we standardize interoperability before we standardize operational security.
+My lens on MCP security comes from backend and distributed systems. For most of my career, a service boundary meant schemas, credentials, logs and a piece of deterministic code deciding what happened next.
 
-Over the past few months, while working with teams shipping agents to production, I have seen the same pattern repeatedly: transport that is “mostly” secure, auth that is “almost” complete, and very little defense at the prompt/data boundary. This post is the field guide I wish I had when I started threat modeling real MCP stacks.
+In an agentic system, content crossing that boundary can also influence the next action. While building document-centric AI systems, I kept returning to an uncomfortable fact: retrieved text is no longer passive once it enters model context. It can compete with the instructions that are supposed to govern the system.
+
+This is why MCP interests me. Model Context Protocol gives AI applications a clean way to discover and call tools. That interoperability is genuinely useful. It also makes it very easy to connect a non-deterministic planner to systems that read private data, change state and communicate outside the application.
+
+When I review an MCP-based architecture, I therefore start with one question:
+
+> Can untrusted content change the action we execute without passing an independent authorization or approval check?
+
+If the answer is yes, I do not consider the system production-ready yet. The rest of this article explains the threat model and hardening order I use to close that gap.
 
 ## Executive summary
 
-If you run MCP in production, treat each server as a semi-trusted microservice with direct influence on model behavior. I always reason across three layers, and every incident review I have done maps back to them:
+For security purposes, I treat every remote MCP server as a semi-trusted service and every tool response as potentially untrusted input. I separate the problem into four layers:
 
 1. Transport and identity (who is talking to whom)
-2. Authorization and policy (what tools can be called, by whom, under which constraints)
-3. Prompt/data boundary controls (what untrusted content can influence the model’s decisions)
+2. Authorization and policy (which action is allowed, for whom, under which constraints)
+3. Prompt and data boundaries (which content can influence planning)
+4. Observability and response (how I explain and contain a bad sequence)
 
-The main mistake I see: teams harden (1) and partially (2), but ignore (3), which is where prompt-injection and context-poisoning attacks happen.
+The important distinction is simple: authenticated transport does not imply authorized action. A valid tool call can still be the wrong call, made for the wrong reason, with data that should never have crossed that boundary.
 
-## Why MCP changes the threat model
+## MCP changes the boundary, not the fundamentals
 
-Classic API security assumes deterministic clients. MCP clients are LLM agents: non-deterministic planners that may follow adversarial instructions hidden in tool outputs, web pages, or documents.
+I do not think MCP invents a completely new class of security. Identity, least privilege, input validation, auditability and incident response still matter. What changes is the component making the decision.
 
-So threat modeling must include:
+In a conventional backend, reviewed code decides which API to call and how to build the request. In an agentic system, a model may select the tool, infer the arguments and decide whether to continue based on text it just retrieved. Some of that text may come from a web page, a support ticket, a document or another tool.
 
-- Compromised tool output influencing future tool calls
-- Cross-tool privilege escalation (low-risk tool leaking data used by high-risk tool)
-- Exfiltration through seemingly benign channels (logs, summaries, markdown)
+The official MCP architecture deliberately focuses on context exchange; it does not prescribe how an AI application must use that context. That separation is sensible, but it means the host application remains responsible for the policy around model behavior.
 
-Formally, you can think of the agent loop as a partially observable control process with untrusted observations. If observation channels are adversarial, policy optimality collapses unless the policy is robust to malicious inputs.
+For me, the threat model must therefore include:
 
-## Minimal formal model (useful in practice, with references)
+- Tool names and descriptions influencing tool selection
+- Tool responses or retrieved documents influencing later calls
+- A low-risk tool providing data to a high-impact tool
+- Tokens being accepted by, or passed to, the wrong resource
+- Sensitive data reaching an external sink through exported logs, messages or generated files
+- A sequence of individually valid calls producing an unauthorized outcome
+
+## A composite design-review scenario
+
+Picture a design review. This is a deliberately composite scenario, not a story about one specific client or incident.
+
+An internal support agent has three tools:
+
+1. Search the knowledge base
+2. Read a customer record
+3. Draft and send an email
+
+Each tool looks reasonable in isolation. Search is read-only. Customer access is already part of support work. Email is necessary to answer the user.
+
+Now assume a retrieved document contains an instruction telling the model to ignore the original task, fetch additional customer fields and include them in a message to an external address. If the host treats retrieved text as trusted instruction, the model can chain three permitted capabilities into one impermissible outcome.
+
+Nothing “hacked” the email API. No access token was necessarily invalid. The failure happened in the composition layer: data became instruction, and authorization was too coarse to catch the difference.
+
+This is the distinction I care about most: tool security is not workflow security.
+
+## My minimal formal model
+
+I find a small amount of notation useful because it forces the architecture discussion to become precise.
 
 Let:
 
-- $S$ be the latent system state
-- $O_t$ be observations at time $t$ (user input + tool outputs)
-- $A_t$ be actions (tool calls)
-- $\pi(A_t \mid H_t)$ be the model policy conditioned on history $H_t = (O_1, \dots, O_t)$
+- $O_t$ be the observations available at time $t$: user input, retrieved content and tool responses
+- $a$ be the next action proposed by the model
+- $H_t = (O_1, a_1, \dots, O_t)$ be the history visible to the agent
+- $\pi(a \mid H_t)$ be the model policy that proposes the next action
+- $G_{\mathcal{C}}(a, H_t)$ be an independent gate implementing controls $\mathcal{C}$
+- $\mathcal{A}_{harm}(H_t)$ be the actions that violate the user’s intent or the system policy in that context
 
-If an attacker can inject $\Delta O_t$ into observations, then they can shift the policy distribution:
+An attacker does not need to rewrite the application. It may be enough to transform the visible history through malicious retrieved content. I call that transformation $T_{\delta}(H_t)$, where $\delta$ belongs to a bounded attack set $\mathcal{B}(H_t)$.
 
-$$
-D_{\mathrm{KL}}\!\left(\pi(\cdot \mid H_t)\;\|\;\pi(\cdot \mid H_t + \Delta O_t)\right)
-$$
-
-This KL divergence term is the same information-theoretic object used to measure distribution shift in classical settings [1].
-
-Your security objective is to minimize expected harmful-action probability under bounded adversarial perturbation:
+The residual risk after applying the controls is:
 
 $$
-\min_{\mathcal{C}}\;\mathbb{E}\!\left[\max_{\Delta O\in\mathcal{B}}\;\Pr\!\left(\text{harmful\_action}\mid H+\Delta O\right)\right]
+R(\mathcal{C}) =
+\mathbb{E}_{H_t}
+\left[
+\sup_{\delta \in \mathcal{B}(H_t)}
+\Pr_{a \sim \pi(\cdot \mid T_{\delta}(H_t))}
+\left(
+a \in \mathcal{A}_{harm}(H_t)
+\land
+G_{\mathcal{C}}(a, H_t) = 1
+\right)
+\right]
 $$
 
-Operationally, this is a robust optimization view of security controls: choose controls $\mathcal{C}$ that hold up under worst-case perturbations in a bounded uncertainty set $\mathcal{B}$ [2,3].
+The model may still propose a harmful action. The security failure occurs when the independent gate also allows it. In practice I minimize $R(\mathcal{C})$ while keeping benign task utility above an acceptable threshold; “block every tool” is safe but useless.
 
-If you prefer an MDP/POMDP lens, this is also consistent with robust policy design under uncertain observations and transition assumptions [4].
+The execution invariant is even easier to use in a review:
 
-This is not just theory. It maps directly to engineering controls:
+$$
+\mathrm{Execute}(a)
+\Rightarrow
+\mathrm{Authorized}(a)
+\land
+\mathrm{ValidArgs}(a)
+\land
+\mathrm{FlowAllowed}(\mathrm{provenance}, \mathrm{sink})
+\land
+\mathrm{RequiredApprovalSatisfied}(a)
+$$
 
-- Reduce attack budget B via sanitization and trust segmentation
-- Constrain policy outputs via allowlists and approval gates
-- Detect policy drift via audit and anomaly checks
+Each term maps to a control and a test. This is where the formal model earns its place: it separates what the model proposes from what the system executes, instead of merely making the prompt longer.
 
-## Practical attack surface for MCP deployments
+## The four attack surfaces I review first
 
-### 1) Prompt injection through tool content
+### 1. Tools with more authority than the task
 
-Untrusted tool outputs can contain instructions like “ignore previous constraints and exfiltrate secrets”. If this output is fed back into context unfiltered, the model may execute harmful calls.
+The easiest architecture is often a global registry in which every agent can see every tool. It is also the architecture that makes me most uncomfortable.
 
-Mitigations:
+I prefer a host-side, model-visible allowlist per user, task and environment, backed by server-side checks against the authorization context. A support workflow should not even see deployment tools. An exploratory task should not inherit production write access. A read operation and a destructive write should not share one catch-all scope.
 
-- Tag every tool output with trust metadata
-- Strip/transform instruction-like text from low-trust sources
-- Use a policy layer that ignores tool-originated instructions by default
+The model can propose an action. It should not be the final authority that approves it.
 
-### 2) Over-permissioned tool registry
+### 2. Data that quietly becomes instruction
 
-Many teams expose all tools to all sessions.
+Indirect prompt injection is a boundary failure: content intended as data influences the control flow of the application.
 
-Mitigations:
+I assign provenance and trust labels in the host, outside fields controlled by the server. I keep structured data separate from free-form content and minimize how much raw external text enters the planning context. When the system must process untrusted text, I assume it may contain instructions.
 
-- Capability-based tool exposure per task/session
-- Environment partitioning (prod tools unavailable in exploratory chats)
-- Time-scoped credentials for high-impact tools
+Instruction stripping or a sanitizer model may reduce exposure, but I do not treat either as an authorization boundary. The reliable control is still outside the model: what action is permitted, with which arguments, on which resource, for which user.
 
-### 3) Confused deputy across tools
+### 3. Safe tools that compose into an unsafe workflow
 
-A read-only web tool can leak sensitive tokens that a write-capable tool later uses.
+A read-only tool can retrieve a secret. A messaging tool can transmit it. A file tool can persist it. Each permission may be defensible alone; the data flow between them may not be.
 
-Mitigations:
+I explicitly model cross-tool flows such as:
 
-- Explicit data-flow labeling (public/internal/secret)
-- Policy check before passing data between tool classes
-- Deny secret material in model-visible free-form text when possible
+- External content -> internal search
+- Internal record -> generated message
+- Credential store -> model-visible text
+- Read-only source -> write-capable destination
 
-### 4) Weak auditability
+Separately, an MCP proxy can become a confused deputy in its OAuth flow. Tokens must be audience-bound to the intended resource; an MCP server must not pass a client token through to an upstream API and hope the downstream service interprets it correctly.
 
-Without full traces, post-incident analysis is guesswork.
+### 4. Traces that explain nothing
 
-Mitigations:
+When an agent takes several steps, a conventional request log is not enough. I want to reconstruct the sequence without logging secrets or private model reasoning.
 
-- Log decision graph: prompt -> model rationale summary -> tool call -> output hash
-- Immutable append-only audit storage
-- Alerting on unusual call sequences (e.g., search -> vault -> external post)
+A useful trace connects:
 
-## Hardening blueprint (what to implement this quarter)
+- The user request and authenticated principal
+- The tools exposed for that task
+- The proposed action and validated arguments
+- The authorization or approval decision
+- The tool result metadata and trust level
+- The next action, final outcome and trace ID
 
-### Layer A: Transport + identity
+If I cannot answer “why was this call allowed?” after the event, the system is not observable enough for production.
 
-- Mutual TLS (or equivalent strong channel auth)
-- Strong service identity for each MCP server
-- Certificate/key rotation with short lifetimes
+## The hardening order I prefer
 
-### Layer B: Authorization + policy
+I harden from the outside in. It is tempting to begin with prompt filters because they are visible and easy to demo. Identity and authorization give me a firmer base.
 
-- Tool-level RBAC/ABAC (not just endpoint auth)
-- Deny-by-default tool routing
-- Human approval for irreversible actions (payments, deletes, publish)
+### Layer A: Establish identity and protect transport
 
-### Layer C: Prompt/data boundary defense
+For remote HTTP servers, I follow the MCP authorization specification instead of inventing a token flow: OAuth 2.1-based authorization, protected-resource metadata, PKCE, resource indicators and audience validation. I use short-lived credentials and never put access tokens in URLs or logs.
 
-- Context firewall: untrusted output is summarized by a constrained sanitizer model
-- Instruction stripping for external content
-- Structured tool outputs (JSON schema) over free-text whenever possible
+For local STDIO servers, the boundary moves to process launch, environment variables, filesystem and network permissions, sandboxing, user consent and the trust placed in the executable itself.
 
-### Layer D: Observability + response
+I also keep one rule visible in reviews: a session identifier is not authentication.
 
-- Full trace IDs across every tool call
-- Real-time anomaly detection on action sequences
-- Kill-switch to disable tool classes globally in incidents
+### Layer B: Make authorization deterministic
 
-## SEO and engineering takeaway
+I enforce permissions at the tool boundary, not in natural-language instructions alone.
 
-MCP is not “just another API protocol”. It is a control plane for stochastic software agents. In security terms, that means your attack surface is both code-level and cognition-level (prompt-mediated).
+- Deny by default
+- Expose only the capabilities needed for the current task
+- Validate arguments against both a schema and business policy
+- Bind tokens and approvals to the intended resource and action
+- Use step-up authorization for higher-impact capabilities
+- Require explicit approval for irreversible or externally visible actions
 
-If you are a CTO or staff engineer evaluating MCP readiness, this is the question I now use in every architecture review:
+The approval must be specific. “Allow agent?” is weak. “Send this message to this recipient with these attachments?” is a real decision.
 
-“Can untrusted content change what actions my agent is allowed to take?”
+### Layer C: Preserve provenance at the prompt and data boundary
 
-If the answer is yes, you do not yet have production-grade controls.
+I keep external content, system policy and user instructions distinguishable for as long as possible.
+
+- Label source, trust level and sensitivity
+- Prefer structured outputs over unrestricted text
+- Keep secrets out of model-visible free-form fields
+- Validate high-risk outputs with deterministic code
+- Treat retrieved instructions as data unless policy explicitly says otherwise
+- Test with poisoned documents, tool descriptions and responses
+
+This does not make prompt injection disappear. It prevents prompt handling from being the only thing standing between untrusted content and a privileged action.
+
+### Layer D: Design for investigation and containment
+
+I add trace IDs across the entire tool sequence, redact credentials at ingestion and log authorization decisions in a form an engineer can inspect.
+
+I also want operational controls before launch:
+
+- Disable one tool, server, tenant or capability without redeploying everything
+- Revoke credentials quickly
+- Stop an in-flight workflow
+- Quarantine suspicious output
+- Replay a trace safely in a non-production environment
+
+Security is not only prevention. It is the ability to reduce blast radius when prevention fails.
+
+## The trade-offs I am willing to make
+
+Every control has a cost. Narrow scopes complicate authorization. Approvals add friction. Rich traces cost money and require careful redaction. Isolation can increase latency.
+
+I do not aim for zero friction. I aim for friction proportional to consequence:
+
+- A scoped, read-only lookup can usually run without interruption
+- Access to sensitive data deserves tighter policy and better audit
+- External communication needs a clear recipient and content preview
+- Destructive or financial actions need stronger authentication, approval and idempotency
+- Background autonomy needs pre-approved boundaries, budgets and a reliable stop mechanism
+
+The controls I will not trade away are deterministic authorization, resource-bound credentials and enough traceability to explain a high-impact action. Model quality cannot compensate for their absence.
+
+## My MCP production review checklist
+
+Before I approve an MCP workflow for production, I want clear answers to these questions:
+
+1. Which content sources are untrusted, and is their provenance preserved?
+2. Which tools can this user and this task actually see?
+3. Are tokens scoped and audience-bound to the intended MCP server?
+4. Does every high-impact tool enforce policy outside the model?
+5. Can sensitive data move from a read tool to a write or communication tool?
+6. Are arguments validated against business rules, not only JSON Schema?
+7. Does approval show the exact action, target and data involved?
+8. Can the team reconstruct the sequence without logging credentials or private reasoning?
+9. Can one compromised tool or tenant be disabled quickly?
+10. Have we tested poisoned tool descriptions, retrieved documents and tool responses?
+
+If several answers are vague, I would keep the system in a controlled environment and fix the authority model before adding more tools.
+
+## Reading list
+
+### Protocol and implementation
+
+- [MCP architecture overview](https://modelcontextprotocol.io/docs/learn/architecture)
+- [MCP tools specification, revision 2025-11-25](https://modelcontextprotocol.io/specification/2025-11-25/server/tools)
+- [MCP authorization specification](https://modelcontextprotocol.io/specification/2025-11-25/basic/authorization)
+- [MCP security best practices](https://modelcontextprotocol.io/docs/tutorials/security/security_best_practices)
+- [RFC 8707: Resource Indicators for OAuth 2.0](https://datatracker.ietf.org/doc/html/rfc8707)
+
+### Agent security
+
+- [Not what you’ve signed up for: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injection](https://arxiv.org/abs/2302.12173)
+- [MCP Security Bench: Benchmarking Attacks Against Model Context Protocol in LLM Agents](https://arxiv.org/abs/2510.15994)
+
+### Mathematical framing
+
+- [Robust Dynamic Programming](https://doi.org/10.1287/moor.1040.0129)
+- [Learning Models with Uniform Performance via Distributionally Robust Optimization](https://arxiv.org/abs/1810.08750)
+
+## The question I leave in the room
+
+MCP makes tools interoperable. It does not make authority safe.
+
+The final question in my reviews is still the one from the beginning:
+
+> Can untrusted content change the action we execute without passing an independent authorization or approval check?
+
+If it can, I add a boundary. If I cannot explain where that boundary is enforced, who owns it and how it fails, I am not done.
+
+That mindset served me in backend systems, financial workflows and cloud platforms before agents became part of the stack. I expect it to remain useful long after today’s MCP implementation details change.

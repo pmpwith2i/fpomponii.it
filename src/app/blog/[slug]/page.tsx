@@ -89,7 +89,24 @@ export async function generateMetadata({
 
   return {
     title: `${post.title} - Federico Pomponii`,
-    description: `${post.title}, published ${formatPostDate(post.date)}.`,
+    description: post.description,
+    alternates: {
+      canonical: `/blog/${post.slug}`,
+    },
+    authors: [{ name: "Federico Pomponii", url: "https://fpomponii.it" }],
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      url: `/blog/${post.slug}`,
+      type: "article",
+      publishedTime: post.date,
+      authors: ["https://fpomponii.it"],
+    },
+    twitter: {
+      card: "summary",
+      title: post.title,
+      description: post.description,
+    },
   };
 }
 
@@ -101,39 +118,75 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     notFound();
   }
 
-  return (
-    <main className="min-h-screen w-full px-8 py-12 font-mono">
-      <article className="mx-auto max-w-3xl">
-        <header className="mb-14 space-y-8">
-          <Link
-            href="/blog"
-            className="text-sm underline transition-colors hover:bg-black hover:text-white"
-          >
-            Blog
-          </Link>
-          <div className="space-y-4">
-            <h1 className="text-4xl font-bold leading-tight underline font-sans">
-              {post.title}
-            </h1>
-            <time className="block text-sm tabular-nums text-gray-500" dateTime={post.date}>
-              {formatPostDate(post.date)}
-            </time>
-          </div>
-        </header>
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    headline: post.title,
+    description: post.description,
+    datePublished: post.date,
+    dateModified: post.date,
+    inLanguage: "en",
+    url: `https://fpomponii.it/blog/${post.slug}`,
+    mainEntityOfPage: `https://fpomponii.it/blog/${post.slug}`,
+    author: {
+      "@type": "Person",
+      "@id": "https://fpomponii.it/#person",
+      name: "Federico Pomponii",
+      url: "https://fpomponii.it",
+    },
+    publisher: {
+      "@type": "Person",
+      "@id": "https://fpomponii.it/#person",
+      name: "Federico Pomponii",
+    },
+  };
+  const articleJsonLdString = JSON.stringify(articleJsonLd).replace(
+    /</g,
+    "\\u003c",
+  );
 
-        <div>
-          <MDXRemote
-            source={post.content}
-            components={mdxComponents}
-            options={{
-              mdxOptions: {
-                remarkPlugins: [remarkMath],
-                rehypePlugins: [rehypeKatex],
-              },
-            }}
-          />
-        </div>
-      </article>
-    </main>
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: articleJsonLdString }}
+      />
+      <main className="min-h-screen w-full px-8 py-12 font-mono">
+        <article className="mx-auto max-w-3xl">
+          <header className="mb-14 space-y-8">
+            <Link
+              href="/blog"
+              className="text-sm underline transition-colors hover:bg-black hover:text-white"
+            >
+              Blog
+            </Link>
+            <div className="space-y-4">
+              <h1 className="text-4xl font-bold leading-tight underline font-sans">
+                {post.title}
+              </h1>
+              <time
+                className="block text-sm tabular-nums text-gray-500"
+                dateTime={post.date}
+              >
+                {formatPostDate(post.date)}
+              </time>
+            </div>
+          </header>
+
+          <div>
+            <MDXRemote
+              source={post.content}
+              components={mdxComponents}
+              options={{
+                mdxOptions: {
+                  remarkPlugins: [remarkMath],
+                  rehypePlugins: [rehypeKatex],
+                },
+              }}
+            />
+          </div>
+        </article>
+      </main>
+    </>
   );
 }

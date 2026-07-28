@@ -3,8 +3,25 @@ import Link from "next/link";
 import { formatPostDate, getBlogPosts } from "@/lib/blog";
 
 export const metadata: Metadata = {
-  title: "Blog - Federico Pomponii",
-  description: "Notes and essays by Federico Pomponii.",
+  title: "Technical Writing - Federico Pomponii",
+  description:
+    "Technical writing by Federico Pomponii on production AI, MCP security, complex backend systems, distributed systems and software engineering.",
+  alternates: {
+    canonical: "/blog",
+  },
+  openGraph: {
+    title: "Technical Writing - Federico Pomponii",
+    description:
+      "Notes on production AI, MCP security, complex backend systems, distributed systems and software engineering.",
+    url: "/blog",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "Technical Writing - Federico Pomponii",
+    description:
+      "Notes on production AI, MCP security, complex backend systems and software engineering.",
+  },
 };
 
 export default function BlogPage() {

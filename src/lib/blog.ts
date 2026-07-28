@@ -5,6 +5,7 @@ export type BlogPost = {
   slug: string;
   title: string;
   date: string;
+  description: string;
   draft: boolean;
 };
 
@@ -15,6 +16,7 @@ export type BlogPostWithContent = BlogPost & {
 type BlogFrontmatter = {
   title?: string;
   date?: string;
+  description?: string;
   draft?: boolean;
 };
 
@@ -62,6 +64,10 @@ function parseFrontmatter(source: string): BlogFrontmatter {
       metadata.date = value;
     }
 
+    if (key === "description") {
+      metadata.description = value;
+    }
+
     if (key === "draft") {
       metadata.draft = value === "true";
     }
@@ -87,6 +93,9 @@ function readBlogPost(slug: string): BlogPostWithContent {
     slug,
     title: metadata.title,
     date: metadata.date,
+    description:
+      metadata.description ??
+      `${metadata.title}, a technical article by Federico Pomponii.`,
     draft: metadata.draft ?? false,
     content: stripFrontmatter(source),
   };

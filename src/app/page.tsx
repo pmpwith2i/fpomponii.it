@@ -3,10 +3,9 @@ import Link from "next/link";
 import { formatPostDate, getBlogPosts } from "@/lib/blog";
 
 const siteUrl = "https://fpomponii.it";
-const pageTitle =
-  "Federico Pomponii - Senior Software Engineer | Applied AI & Complex Systems";
+const pageTitle = "Federico Pomponii - Senior Full Stack AI Engineer";
 const pageDescription =
-  "Senior Software Engineer building production AI, backend and distributed systems. 10+ years solving complex product and cloud problems across the US and Europe.";
+  "Senior Full Stack AI Engineer and Senior Software Engineer architecting AI-native products and distributed systems from ambiguity to production.";
 
 export const metadata: Metadata = {
   title: pageTitle,
@@ -16,9 +15,9 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title:
-      "Federico Pomponii - Senior Software Engineer for Applied AI and Complex Systems",
+      "Federico Pomponii - Senior Full Stack AI Engineer & Software Architect",
     description:
-      "Production AI, complex backend systems and cloud architecture - from ambiguous problem to reliable production outcome.",
+      "Hands-on software architecture for AI-native products: React and TypeScript, backend APIs, distributed systems, RAG, agents and cloud infrastructure.",
     url: siteUrl,
     siteName: "Federico Pomponii",
     images: [
@@ -26,7 +25,7 @@ export const metadata: Metadata = {
         url: `${siteUrl}/me.JPG`,
         width: 3024,
         height: 4032,
-        alt: "Federico Pomponii, Senior Software Engineer",
+        alt: "Federico Pomponii, Senior Full Stack AI Engineer and Software Architect",
       },
     ],
     locale: "en_US",
@@ -36,13 +35,13 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary",
     title:
-      "Federico Pomponii - Senior Software Engineer for Applied AI and Complex Systems",
+      "Federico Pomponii - Senior Full Stack AI Engineer & Software Architect",
     description:
-      "Production AI, complex backend systems and cloud architecture - from ambiguous problem to reliable production outcome.",
+      "Hands-on software architecture for AI-native products: React and TypeScript, backend APIs, distributed systems, RAG, agents and cloud infrastructure.",
     images: [
       {
         url: `${siteUrl}/me.JPG`,
-        alt: "Federico Pomponii, Senior Software Engineer",
+        alt: "Federico Pomponii, Senior Full Stack AI Engineer and Software Architect",
       },
     ],
   },
@@ -58,19 +57,28 @@ export const metadata: Metadata = {
     },
   },
   keywords: [
+    "Senior Full Stack AI Engineer",
     "Senior Software Engineer",
+    "Software Architect",
+    "Full Stack AI Engineering",
+    "AI-Native Product Architecture",
+    "End-to-End Product Engineering",
     "Applied AI",
     "Production AI",
     "Complex Systems",
-    "Backend Engineering",
+    "Backend API Development",
     "Distributed Systems",
     "Cloud Architecture",
     "System Design",
     "RAG",
+    "Embeddings",
+    "Vector Databases",
     "AI Agents",
-    "LLM Workflows",
+    "LLM Evaluation",
     "MCP",
     "TypeScript",
+    "Python",
+    "Rust",
     "Node.js",
     "Next.js",
     "React",
@@ -79,11 +87,12 @@ export const metadata: Metadata = {
     "Docker",
     "Italy",
     "Teramo",
-    "Technical Lead",
+    "CI/CD",
+    "Observability",
   ],
   authors: [{ name: "Federico Pomponii", url: siteUrl }],
   creator: "Federico Pomponii",
-  category: "Software Engineering",
+  category: "Full Stack AI Engineering",
 };
 
 export default function Home() {
@@ -108,7 +117,7 @@ export default function Home() {
         url: siteUrl,
         name: pageTitle,
         description: pageDescription,
-        dateModified: "2026-07-28",
+        dateModified: "2026-08-12",
         inLanguage: "en",
         isPartOf: {
           "@id": `${siteUrl}/#website`,
@@ -123,7 +132,11 @@ export default function Home() {
         name: "Federico Pomponii",
         givenName: "Federico",
         familyName: "Pomponii",
-        jobTitle: "Senior Software Engineer",
+        jobTitle: [
+          "Senior Full Stack AI Engineer",
+          "Senior Software Engineer",
+          "Software Architect",
+        ],
         description: pageDescription,
         url: siteUrl,
         image: {
@@ -131,7 +144,8 @@ export default function Home() {
           url: `${siteUrl}/me.JPG`,
           width: 3024,
           height: 4032,
-          caption: "Federico Pomponii, Senior Software Engineer",
+          caption:
+            "Federico Pomponii, Senior Full Stack AI Engineer and Software Architect",
         },
         email: "mailto:federico.pomponii@gmail.com",
         nationality: {
@@ -156,46 +170,74 @@ export default function Home() {
           "@id": "https://negenai.it/#organization",
         },
         knowsAbout: [
+          "Full Stack AI engineering",
+          "AI-native product architecture",
           "Applied AI",
           "Production AI systems",
           "Retrieval-Augmented Generation (RAG)",
+          "Embeddings and vector search",
           "AI agents",
-          "Large language model workflows",
+          "Tool calling and large language model workflows",
+          "LLM evaluation",
           "Model Context Protocol (MCP)",
-          "Backend engineering",
+          "Frontend engineering",
+          "Backend API design",
           "Distributed systems",
+          "Software architecture",
           "Cloud architecture",
           "System design",
+          "Reliability, security and observability",
           "TypeScript",
+          "JavaScript",
           "Node.js",
+          "Python",
+          "Rust",
           "AWS",
+          "SQL",
           "PostgreSQL",
           "Docker",
+          "CI/CD",
           "React",
           "Next.js",
         ],
         hasOccupation: {
           "@type": "Occupation",
-          name: "Senior Software Engineer",
+          name: "Senior Full Stack AI Engineer",
+          alternateName: ["Senior Software Engineer", "Software Architect"],
           description:
-            "Hands-on software engineering across applied AI, complex backend systems, distributed systems and cloud architecture.",
+            "Hands-on architecture and end-to-end engineering for AI-native products, complex backend services, distributed systems and cloud infrastructure.",
+          occupationalCategory: "Software Engineering",
           occupationLocation: {
             "@type": "Country",
             name: "Italy",
           },
           skills: [
-            "Applied AI",
-            "RAG",
-            "AI agents",
-            "Backend engineering",
+            "Full Stack AI engineering",
+            "Software architecture",
+            "React and TypeScript",
+            "Python",
+            "Rust",
+            "Backend API design",
             "Distributed systems",
-            "Cloud architecture",
-            "System design",
-            "TypeScript",
-            "Node.js",
-            "AWS",
-            "PostgreSQL",
-            "Docker",
+            "AWS and cloud architecture",
+            "SQL and PostgreSQL",
+            "RAG",
+            "Embeddings and vector databases",
+            "AI agents",
+            "LLM evaluation",
+            "Automated testing and CI/CD",
+            "Reliability, security and observability",
+          ],
+        },
+        subjectOf: {
+          "@type": "TechArticle",
+          headline:
+            "MCP Security for Engineers: Threat Model, Attack Surface, and Hardening",
+          url: `${siteUrl}/blog/mcp-security-for-engineers`,
+          about: [
+            "Model Context Protocol",
+            "AI security",
+            "Production AI architecture",
           ],
         },
       },
@@ -223,42 +265,49 @@ export default function Home() {
             Federico Pomponii.
           </h1>
           <h2 className="text-2xl font-semibold mb-4 font-sans">
-            Senior Software Engineer - Applied AI & Complex Systems.
+            Senior Full Stack AI Engineer & Software Architect.
           </h2>
           <div className="space-y-2 text-gray-600">
             <p className="text-lg">
-              I turn ambiguous, cross-domain problems into reliable production
-              systems, combining applied AI, backend engineering, cloud
-              architecture and end-to-end ownership.
+              I am a Senior Full Stack AI Engineer and hands-on software
+              architect. As a Senior Software Engineer, I turn ambiguous goals
+              into AI-native products that hold up in production, from React
+              and TypeScript interfaces to backend APIs, distributed services,
+              data systems and cloud infrastructure.
             </p>
             <p className="text-lg">
               I started working professionally as a software engineer at 17,
               before completing high school. Since then, I have built software
               across fintech, public-sector products, national-scale media,
               Silicon Valley SaaS, digital-asset infrastructure and applied AI.
-              The titles changed, but the common thread did not: I tend to
-              become the person trusted with problems that cross team or domain
-              boundaries.
+              The titles and domains changed; the pattern did not: I am usually
+              trusted when a problem crosses team boundaries, has no obvious
+              owner, or needs a coherent system rather than another isolated
+              feature.
             </p>
             <p className="text-lg">
-              My strongest work happens when the problem is ambiguous. I connect
-              product and business constraints to architecture, hands-on
-              implementation, integrations, deployment and production
-              operations. I am comfortable moving between AI workflows,
-              distributed backend services, cloud infrastructure and technical
-              leadership without losing depth.
+              Complexity does not intimidate me. I build context, challenge
+              assumptions, map constraints, define system boundaries, choose
+              the architecture, translate decisions into executable work and
+              stay accountable through implementation, deployment and
+              operations. That lets me move from product reasoning to code
+              without losing sight of either.
             </p>
             <p className="text-lg">
-              Today, I focus on production AI and complex systems: RAG, AI
-              agents, LLM workflows, evaluation, security, guardrails and
-              observability, together with the backend, data and cloud
-              foundations that make those systems reliable.
+              I do not use AI because it is fashionable. I use RAG, embeddings,
+              vector search, agents, MCP, tool calling and evaluation when they
+              improve the product, with testing, guardrails, observability,
+              security, performance and cost treated as design inputs from the
+              start.
             </p>
             <p className="text-lg">
-              I am based in Teramo, Italy, and have worked with teams across
-              Europe and the United States. Through Negen, I lead selected
-              product and consulting engagements while remaining hands-on
-              across architecture, code and production delivery.
+              My core stack spans TypeScript and JavaScript, React and Next.js,
+              Node.js, Python, PostgreSQL, AWS, Docker and CI/CD, with practical
+              Rust and distributed-systems experience. I am based in Teramo,
+              Italy, and have worked with teams across Europe and the United
+              States. Through Negen, I lead selected product and consulting
+              engagements while remaining hands-on across architecture, code
+              and production delivery.
             </p>
           </div>
 
@@ -269,7 +318,7 @@ export default function Home() {
             <a
               href="https://github.com/pmpwith2i"
               target="_blank"
-              rel="noopener noreferrer"
+              rel="me noopener noreferrer"
               className="underline hover:bg-black hover:text-white transition-colors"
             >
               GitHub
@@ -278,7 +327,7 @@ export default function Home() {
             <a
               href="https://www.linkedin.com/in/federico-pomponii"
               target="_blank"
-              rel="noopener noreferrer"
+              rel="me noopener noreferrer"
               className="underline hover:bg-black hover:text-white transition-colors"
             >
               LinkedIn

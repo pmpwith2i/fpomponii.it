@@ -5,12 +5,12 @@ const siteUrl = "https://fpomponii.it";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const posts = getBlogPosts();
-  const latestPostDate = posts.at(0)?.date ?? "2026-07-28";
+  const latestPostDate = posts.at(0)?.date ?? "2026-08-12";
 
   return [
     {
       url: siteUrl,
-      lastModified: new Date("2026-07-28"),
+      lastModified: new Date("2026-08-12"),
       changeFrequency: "monthly",
       priority: 1,
       images: [`${siteUrl}/me.JPG`],

@@ -1,8 +1,13 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { formatPostDate, getBlogPosts } from "@/lib/blog";
 
 const siteUrl = "https://fpomponii.it";
+const portraitPath = "/federico-pomponii.jpg";
+const illustrationPath =
+  "/federico-pomponii-illustration-geometric-transparent.png";
+const portraitUrl = `${siteUrl}${portraitPath}`;
 const pageTitle = "Federico Pomponii - Senior Full Stack AI Engineer";
 const pageDescription =
   "Senior Full Stack AI Engineer and Senior Software Engineer architecting AI-native products and distributed systems from ambiguity to production.";
@@ -22,9 +27,9 @@ export const metadata: Metadata = {
     siteName: "Federico Pomponii",
     images: [
       {
-        url: `${siteUrl}/me.JPG`,
-        width: 3024,
-        height: 4032,
+        url: portraitUrl,
+        width: 1600,
+        height: 1549,
         alt: "Federico Pomponii, Senior Full Stack AI Engineer and Software Architect",
       },
     ],
@@ -40,7 +45,7 @@ export const metadata: Metadata = {
       "Hands-on software architecture for AI-native products: React and TypeScript, backend APIs, distributed systems, RAG, agents and cloud infrastructure.",
     images: [
       {
-        url: `${siteUrl}/me.JPG`,
+        url: portraitUrl,
         alt: "Federico Pomponii, Senior Full Stack AI Engineer and Software Architect",
       },
     ],
@@ -117,7 +122,7 @@ export default function Home() {
         url: siteUrl,
         name: pageTitle,
         description: pageDescription,
-        dateModified: "2026-08-12",
+        dateModified: "2026-08-14",
         inLanguage: "en",
         isPartOf: {
           "@id": `${siteUrl}/#website`,
@@ -141,9 +146,9 @@ export default function Home() {
         url: siteUrl,
         image: {
           "@type": "ImageObject",
-          url: `${siteUrl}/me.JPG`,
-          width: 3024,
-          height: 4032,
+          url: portraitUrl,
+          width: 1600,
+          height: 1549,
           caption:
             "Federico Pomponii, Senior Full Stack AI Engineer and Software Architect",
         },
@@ -259,87 +264,71 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLdString }}
       />
-      <main className="min-h-screen flex w-full px-8 py-8 flex-col justify-center max-w-7xl mx-auto space-y-16 font-mono">
-        <section className="max-w-4xl space-y-6">
-          <h1 className="text-4xl font-bold mt-12 mb-6 underline font-sans">
-            Federico Pomponii.
-          </h1>
-          <h2 className="text-2xl font-semibold mb-4 font-sans">
-            Senior Full Stack AI Engineer & Software Architect.
-          </h2>
-          <div className="space-y-2 text-gray-600">
-            <p className="text-lg">
-              I am a Senior Full Stack AI Engineer and hands-on software
-              architect. As a Senior Software Engineer, I turn ambiguous goals
-              into AI-native products that hold up in production, from React
-              and TypeScript interfaces to backend APIs, distributed services,
-              data systems and cloud infrastructure.
-            </p>
-            <p className="text-lg">
-              I started working professionally as a software engineer at 17,
-              before completing high school. Since then, I have built software
-              across fintech, public-sector products, national-scale media,
-              Silicon Valley SaaS, digital-asset infrastructure and applied AI.
-              The titles and domains changed; the pattern did not: I am usually
-              trusted when a problem crosses team boundaries, has no obvious
-              owner, or needs a coherent system rather than another isolated
-              feature.
-            </p>
-            <p className="text-lg">
-              Complexity does not intimidate me. I build context, challenge
-              assumptions, map constraints, define system boundaries, choose
-              the architecture, translate decisions into executable work and
-              stay accountable through implementation, deployment and
-              operations. That lets me move from product reasoning to code
-              without losing sight of either.
-            </p>
-            <p className="text-lg">
-              I do not use AI because it is fashionable. I use RAG, embeddings,
-              vector search, agents, MCP, tool calling and evaluation when they
-              improve the product, with testing, guardrails, observability,
-              security, performance and cost treated as design inputs from the
-              start.
-            </p>
-            <p className="text-lg">
-              My core stack spans TypeScript and JavaScript, React and Next.js,
-              Node.js, Python, PostgreSQL, AWS, Docker and CI/CD, with practical
-              Rust and distributed-systems experience. I am based in Teramo,
-              Italy, and have worked with teams across Europe and the United
-              States. Through Negen, I lead selected product and consulting
-              engagements while remaining hands-on across architecture, code
-              and production delivery.
-            </p>
+      <main className="mx-auto flex min-h-screen w-full max-w-7xl flex-col space-y-16 px-8 py-8 font-mono">
+        <section className="relative flex min-h-[calc(100svh-4rem)] w-full max-w-6xl flex-col justify-center gap-12 pb-[19rem] pt-10 lg:py-10 lg:pr-[19rem]">
+          <div className="max-w-2xl space-y-6">
+            <h1 className="text-4xl font-bold underline font-sans">
+              Federico Pomponii.
+            </h1>
+            <h2 className="text-2xl font-semibold font-sans text-balance">
+              Senior Full Stack AI Engineer & Software Architect.
+            </h2>
+            <div className="space-y-4 text-gray-600">
+              <p className="text-lg leading-8 text-pretty">
+                I build AI-native products end to end as a Senior Full Stack AI
+                Engineer and hands-on software architect.
+              </p>
+              <p className="text-lg leading-8 text-pretty">
+                I like the problems that do not come with a clean brief: I turn
+                ambiguity into reliable interfaces, backend systems, AI
+                workflows and cloud infrastructure.
+              </p>
+              <p className="text-lg leading-8 text-pretty">
+                If you need someone who can shape the architecture, write the
+                code and own what happens in production, {" "}
+                <a
+                  href="mailto:federico.pomponii@gmail.com"
+                  className="underline underline-offset-4 transition-colors hover:bg-black hover:text-white"
+                >
+                  let&apos;s talk.
+                </a>
+              </p>
+            </div>
+
+            <nav
+              aria-label="Federico Pomponii online"
+              className="flex items-center justify-start gap-3 text-sm font-mono"
+            >
+              <a
+                href="https://github.com/pmpwith2i"
+                target="_blank"
+                rel="me noopener noreferrer"
+                className="underline transition-colors hover:bg-black hover:text-white"
+              >
+                GitHub
+              </a>
+              <span>•</span>
+              <a
+                href="https://www.linkedin.com/in/federico-pomponii"
+                target="_blank"
+                rel="me noopener noreferrer"
+                className="underline transition-colors hover:bg-black hover:text-white"
+              >
+                LinkedIn
+              </a>
+            </nav>
           </div>
 
-          <nav
-            aria-label="Federico Pomponii online"
-            className="flex items-center justify-start gap-3 text-sm font-mono"
-          >
-            <a
-              href="https://github.com/pmpwith2i"
-              target="_blank"
-              rel="me noopener noreferrer"
-              className="underline hover:bg-black hover:text-white transition-colors"
-            >
-              GitHub
-            </a>
-            <span>•</span>
-            <a
-              href="https://www.linkedin.com/in/federico-pomponii"
-              target="_blank"
-              rel="me noopener noreferrer"
-              className="underline hover:bg-black hover:text-white transition-colors"
-            >
-              LinkedIn
-            </a>
-            <span>•</span>
-            <a
-              href="mailto:federico.pomponii@gmail.com"
-              className="underline hover:bg-black hover:text-white transition-colors"
-            >
-              Email
-            </a>
-          </nav>
+          <figure className="portrait-illustration absolute right-0 bottom-0">
+            <Image
+              src={illustrationPath}
+              alt="Geometric illustration of Federico Pomponii"
+              fill
+              priority
+              sizes="(min-width: 1024px) 288px, 72vw"
+              className="portrait-illustration__image"
+            />
+          </figure>
         </section>
 
         <section

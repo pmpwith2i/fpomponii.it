@@ -10,7 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: siteUrl,
-      lastModified: new Date("2026-08-14"),
+      lastModified: new Date("2026-08-17"),
       changeFrequency: "monthly",
       priority: 1,
       images: [`${siteUrl}/federico-pomponii.jpg`],

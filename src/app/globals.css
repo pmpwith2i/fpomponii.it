@@ -34,24 +34,6 @@ body {
   position: relative;
 }
 
-.portrait-illustration {
-  width: min(72vw, 19rem);
-  aspect-ratio: 1275 / 1233;
-  pointer-events: none;
-  user-select: none;
-}
-
-.portrait-illustration__image {
-  object-fit: contain;
-  object-position: right bottom;
-}
-
-@media (min-width: 64rem) {
-  .portrait-illustration {
-    width: clamp(15rem, 20vw, 18rem);
-  }
-}
-
 /* Pixel border style */
 .pixel-border {
   border: 3px solid var(--border-color);

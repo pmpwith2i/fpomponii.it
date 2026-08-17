@@ -1,12 +1,9 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { formatPostDate, getBlogPosts } from "@/lib/blog";
 
 const siteUrl = "https://fpomponii.it";
 const portraitPath = "/federico-pomponii.jpg";
-const illustrationPath =
-  "/federico-pomponii-illustration-geometric-transparent.png";
 const portraitUrl = `${siteUrl}${portraitPath}`;
 const pageTitle = "Federico Pomponii - Senior Full Stack AI Engineer";
 const pageDescription =
@@ -122,7 +119,7 @@ export default function Home() {
         url: siteUrl,
         name: pageTitle,
         description: pageDescription,
-        dateModified: "2026-08-14",
+        dateModified: "2026-08-17",
         inLanguage: "en",
         isPartOf: {
           "@id": `${siteUrl}/#website`,
@@ -265,7 +262,7 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: jsonLdString }}
       />
       <main className="mx-auto flex min-h-screen w-full max-w-7xl flex-col space-y-16 px-8 py-8 font-mono">
-        <section className="relative flex min-h-[calc(100svh-4rem)] w-full max-w-6xl flex-col justify-center gap-12 pb-[19rem] pt-10 lg:py-10 lg:pr-[19rem]">
+        <section className="flex min-h-[calc(100svh-4rem)] w-full max-w-6xl flex-col justify-center py-10">
           <div className="max-w-2xl space-y-6">
             <h1 className="text-4xl font-bold underline font-sans">
               Federico Pomponii.
@@ -318,17 +315,6 @@ export default function Home() {
               </a>
             </nav>
           </div>
-
-          <figure className="portrait-illustration absolute right-0 bottom-0">
-            <Image
-              src={illustrationPath}
-              alt="Geometric illustration of Federico Pomponii"
-              fill
-              priority
-              sizes="(min-width: 1024px) 288px, 72vw"
-              className="portrait-illustration__image"
-            />
-          </figure>
         </section>
 
         <section

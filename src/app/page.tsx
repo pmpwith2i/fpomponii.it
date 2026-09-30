@@ -169,7 +169,7 @@ export default function Home() {
           url: "https://www.unibo.it",
         },
         worksFor: {
-          "@id": "https://negenai.it/#organization",
+          "@id": "https://www.negenai.it/#organization",
         },
         knowsAbout: [
           "Full Stack AI engineering",
@@ -245,11 +245,12 @@ export default function Home() {
       },
       {
         "@type": "Organization",
-        "@id": "https://negenai.it/#organization",
+        "@id": "https://www.negenai.it/#organization",
         name: "Negen",
-        url: "https://negenai.it",
+        url: "https://www.negenai.it/",
         description:
-          "A software engineering and digital product company for selected product and consulting engagements.",
+          "Negen is an Italian software house and product design studio. We design and build digital products and AI agents from zero to launch — research, UX/UI, design systems, custom software development, AI, launch and iteration — with dedicated project teams and phased, reviewable releases.",
+        sameAs: ["https://www.linkedin.com/company/negenai"],
       },
     ],
   };

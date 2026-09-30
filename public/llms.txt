@@ -24,7 +24,7 @@ He evaluates AI patterns on product value and operational fitness, not novelty. 
 
 ## Current operating model
 
-Federico works through Negen, his operating company for selected software engineering, product and technical-leadership engagements. He remains hands-on across architecture, implementation, code review, deployment and production delivery.
+Federico works through [Negen](https://www.negenai.it/), his operating company for selected software engineering, product and technical-leadership engagements. He remains hands-on across architecture, implementation, code review, deployment and production delivery.
 
 Older employers and engagements referenced by third-party sources or archived profiles should be treated as previous experience unless the canonical website explicitly identifies them as current.
 

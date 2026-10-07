@@ -76,7 +76,7 @@ export const metadata: Metadata = {
     "Python",
     "PostgreSQL",
     "AWS",
-    "Rome",
+    "Teramo",
     "Italy",
   ],
   authors: [{ name: "Federico Pomponii", url: siteUrl }],
@@ -138,7 +138,7 @@ export default function Home() {
         },
         homeLocation: {
           "@type": "Place",
-          name: "Rome, Italy",
+          name: "Teramo, Italy",
         },
         knowsLanguage: ["English", "Italian"],
         sameAs: [

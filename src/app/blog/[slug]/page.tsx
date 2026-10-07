@@ -132,11 +132,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       "@type": "Person",
       "@id": "https://fpomponii.it/#person",
       name: "Federico Pomponii",
-      jobTitle: [
-        "Senior Full Stack AI Engineer",
-        "Senior Software Engineer",
-        "Software Architect",
-      ],
+      jobTitle: ["Senior Full-Stack AI Engineer", "Senior Software Engineer"],
       url: "https://fpomponii.it",
     },
     publisher: {

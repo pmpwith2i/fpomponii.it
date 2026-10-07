@@ -5,9 +5,13 @@ import { formatPostDate, getBlogPosts } from "@/lib/blog";
 const siteUrl = "https://fpomponii.it";
 const portraitPath = "/federico-pomponii.jpg";
 const portraitUrl = `${siteUrl}${portraitPath}`;
-const pageTitle = "Federico Pomponii - Senior Full Stack AI Engineer";
+const pageTitle = "Federico Pomponii - Senior Full-Stack AI Engineer";
 const pageDescription =
-  "Senior Full Stack AI Engineer and Senior Software Engineer architecting AI-native products and distributed systems from ambiguity to production.";
+  "Senior Full-Stack AI Engineer building AI-native products end to end: LLM agent systems, React and TypeScript interfaces, distributed backends and AWS infrastructure.";
+const socialTitle = pageTitle;
+const socialDescription =
+  "Production AI and full-stack product engineering: agent runtimes with human-confirmed actions, multi-agent pipelines, evaluation harnesses, React and TypeScript, distributed systems on AWS.";
+const portraitAlt = "Federico Pomponii, Senior Full-Stack AI Engineer";
 
 export const metadata: Metadata = {
   title: pageTitle,
@@ -16,10 +20,8 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title:
-      "Federico Pomponii - Senior Full Stack AI Engineer & Software Architect",
-    description:
-      "Hands-on software architecture for AI-native products: React and TypeScript, backend APIs, distributed systems, RAG, agents and cloud infrastructure.",
+    title: socialTitle,
+    description: socialDescription,
     url: siteUrl,
     siteName: "Federico Pomponii",
     images: [
@@ -27,7 +29,7 @@ export const metadata: Metadata = {
         url: portraitUrl,
         width: 1600,
         height: 1549,
-        alt: "Federico Pomponii, Senior Full Stack AI Engineer and Software Architect",
+        alt: portraitAlt,
       },
     ],
     locale: "en_US",
@@ -36,14 +38,12 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary",
-    title:
-      "Federico Pomponii - Senior Full Stack AI Engineer & Software Architect",
-    description:
-      "Hands-on software architecture for AI-native products: React and TypeScript, backend APIs, distributed systems, RAG, agents and cloud infrastructure.",
+    title: socialTitle,
+    description: socialDescription,
     images: [
       {
         url: portraitUrl,
-        alt: "Federico Pomponii, Senior Full Stack AI Engineer and Software Architect",
+        alt: portraitAlt,
       },
     ],
   },
@@ -59,42 +59,29 @@ export const metadata: Metadata = {
     },
   },
   keywords: [
-    "Senior Full Stack AI Engineer",
+    "Senior Full-Stack AI Engineer",
     "Senior Software Engineer",
-    "Software Architect",
-    "Full Stack AI Engineering",
-    "AI-Native Product Architecture",
-    "End-to-End Product Engineering",
-    "Applied AI",
-    "Production AI",
-    "Complex Systems",
-    "Backend API Development",
-    "Distributed Systems",
-    "Cloud Architecture",
-    "System Design",
-    "RAG",
-    "Embeddings",
-    "Vector Databases",
+    "Full-Stack Engineer",
     "AI Agents",
+    "LLM Systems",
+    "Tool Calling",
     "LLM Evaluation",
     "MCP",
+    "Distributed Systems",
+    "System Design",
     "TypeScript",
-    "Python",
-    "Rust",
-    "Node.js",
-    "Next.js",
     "React",
+    "Next.js",
+    "Node.js",
+    "Python",
     "PostgreSQL",
     "AWS",
-    "Docker",
+    "Rome",
     "Italy",
-    "Teramo",
-    "CI/CD",
-    "Observability",
   ],
   authors: [{ name: "Federico Pomponii", url: siteUrl }],
   creator: "Federico Pomponii",
-  category: "Full Stack AI Engineering",
+  category: "Software Engineering",
 };
 
 export default function Home() {
@@ -119,7 +106,7 @@ export default function Home() {
         url: siteUrl,
         name: pageTitle,
         description: pageDescription,
-        dateModified: "2026-08-17",
+        dateModified: "2026-10-07",
         inLanguage: "en",
         isPartOf: {
           "@id": `${siteUrl}/#website`,
@@ -134,11 +121,7 @@ export default function Home() {
         name: "Federico Pomponii",
         givenName: "Federico",
         familyName: "Pomponii",
-        jobTitle: [
-          "Senior Full Stack AI Engineer",
-          "Senior Software Engineer",
-          "Software Architect",
-        ],
+        jobTitle: ["Senior Full-Stack AI Engineer", "Senior Software Engineer"],
         description: pageDescription,
         url: siteUrl,
         image: {
@@ -146,8 +129,7 @@ export default function Home() {
           url: portraitUrl,
           width: 1600,
           height: 1549,
-          caption:
-            "Federico Pomponii, Senior Full Stack AI Engineer and Software Architect",
+          caption: portraitAlt,
         },
         email: "mailto:federico.pomponii@gmail.com",
         nationality: {
@@ -156,7 +138,7 @@ export default function Home() {
         },
         homeLocation: {
           "@type": "Place",
-          name: "Teramo, Italy",
+          name: "Rome, Italy",
         },
         knowsLanguage: ["English", "Italian"],
         sameAs: [
@@ -168,67 +150,51 @@ export default function Home() {
           name: "University of Bologna",
           url: "https://www.unibo.it",
         },
-        worksFor: {
-          "@id": "https://www.negenai.it/#organization",
-        },
         knowsAbout: [
-          "Full Stack AI engineering",
-          "AI-native product architecture",
-          "Applied AI",
-          "Production AI systems",
-          "Retrieval-Augmented Generation (RAG)",
-          "Embeddings and vector search",
-          "AI agents",
-          "Tool calling and large language model workflows",
+          "LLM application engineering",
+          "AI agents and tool calling",
+          "Multi-agent pipelines",
           "LLM evaluation",
+          "Model routing",
           "Model Context Protocol (MCP)",
-          "Frontend engineering",
-          "Backend API design",
-          "Distributed systems",
-          "Software architecture",
-          "Cloud architecture",
-          "System design",
-          "Reliability, security and observability",
-          "TypeScript",
-          "JavaScript",
-          "Node.js",
-          "Python",
-          "Rust",
-          "AWS",
-          "SQL",
-          "PostgreSQL",
-          "Docker",
-          "CI/CD",
+          "LLM observability",
+          "PII pseudonymization for AI data flows",
+          "Full-stack product engineering",
           "React",
           "Next.js",
+          "TypeScript",
+          "Node.js",
+          "Python",
+          "Backend API design",
+          "Distributed systems",
+          "System design",
+          "PostgreSQL",
+          "AWS",
+          "Infrastructure as code",
+          "CI/CD",
+          "Observability",
         ],
         hasOccupation: {
           "@type": "Occupation",
-          name: "Senior Full Stack AI Engineer",
-          alternateName: ["Senior Software Engineer", "Software Architect"],
+          name: "Senior Full-Stack AI Engineer",
+          alternateName: ["Senior Software Engineer"],
           description:
-            "Hands-on architecture and end-to-end engineering for AI-native products, complex backend services, distributed systems and cloud infrastructure.",
+            "End-to-end engineering for AI-native products: LLM agent systems, React and TypeScript interfaces, distributed backends and AWS infrastructure.",
           occupationalCategory: "Software Engineering",
           occupationLocation: {
             "@type": "Country",
             name: "Italy",
           },
           skills: [
-            "Full Stack AI engineering",
-            "Software architecture",
-            "React and TypeScript",
-            "Python",
-            "Rust",
-            "Backend API design",
-            "Distributed systems",
-            "AWS and cloud architecture",
-            "SQL and PostgreSQL",
-            "RAG",
-            "Embeddings and vector databases",
-            "AI agents",
+            "AI agents and tool calling",
             "LLM evaluation",
-            "Automated testing and CI/CD",
-            "Reliability, security and observability",
+            "React and TypeScript",
+            "Node.js and Python",
+            "Distributed systems",
+            "System design",
+            "AWS and infrastructure as code",
+            "PostgreSQL",
+            "Observability",
           ],
         },
         subjectOf: {
@@ -242,15 +208,6 @@ export default function Home() {
             "Production AI architecture",
           ],
         },
-      },
-      {
-        "@type": "Organization",
-        "@id": "https://www.negenai.it/#organization",
-        name: "Negen",
-        url: "https://www.negenai.it/",
-        description:
-          "Negen is an Italian software house and product design studio. We design and build digital products and AI agents from zero to launch — research, UX/UI, design systems, custom software development, AI, launch and iteration — with dedicated project teams and phased, reviewable releases.",
-        sameAs: ["https://www.linkedin.com/company/negenai"],
       },
     ],
   };
@@ -269,21 +226,27 @@ export default function Home() {
               Federico Pomponii.
             </h1>
             <h2 className="text-2xl font-semibold font-sans text-balance">
-              Senior Full Stack AI Engineer & Software Architect.
+              Senior Full-Stack AI Engineer.
             </h2>
             <div className="space-y-4 text-gray-600">
               <p className="text-lg leading-8 text-pretty">
-                I build AI-native products end to end as a Senior Full Stack AI
-                Engineer and hands-on software architect.
+                I build AI-native products end to end, from React interfaces to
+                backend services, LLM systems and cloud infrastructure.
               </p>
               <p className="text-lg leading-8 text-pretty">
-                I like the problems that do not come with a clean brief: I turn
-                ambiguity into reliable interfaces, backend systems, AI
-                workflows and cloud infrastructure.
+                Recently: agent runtimes where state-changing actions wait for
+                explicit user confirmation, multi-agent pipelines that cite
+                their evidence, and eval harnesses that choose models on
+                behavior and cost.
+              </p>
+              <p className="text-lg leading-8 text-pretty">
+                I like the problems that do not come with a clean brief, and
+                turning that ambiguity into systems that hold up in
+                production.
               </p>
               <p className="text-lg leading-8 text-pretty">
                 If you need someone who can shape the architecture, write the
-                code and own what happens in production, {" "}
+                code and own what happens in production,{" "}
                 <a
                   href="mailto:federico.pomponii@gmail.com"
                   className="underline underline-offset-4 transition-colors hover:bg-black hover:text-white"

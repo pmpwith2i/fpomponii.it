@@ -143,7 +143,7 @@ export default function Home() {
         knowsLanguage: ["English", "Italian"],
         sameAs: [
           "https://github.com/pmpwith2i",
-          "https://www.linkedin.com/in/federico-pomponii",
+          // "https://www.linkedin.com/in/federico-pomponii",
         ],
         alumniOf: {
           "@type": "EducationalOrganization",
@@ -258,14 +258,14 @@ export default function Home() {
                 GitHub
               </a>
               <span>•</span>
-              <a
+              {/* <a
                 href="https://www.linkedin.com/in/federico-pomponii"
                 target="_blank"
                 rel="me noopener noreferrer"
                 className="underline transition-colors hover:bg-black hover:text-white"
               >
                 LinkedIn
-              </a>
+              </a> */}
             </nav>
           </div>
         </section>

@@ -106,7 +106,7 @@ export default function Home() {
         url: siteUrl,
         name: pageTitle,
         description: pageDescription,
-        dateModified: "2026-10-07",
+        dateModified: "2026-10-12",
         inLanguage: "en",
         isPartOf: {
           "@id": `${siteUrl}/#website`,
@@ -141,10 +141,7 @@ export default function Home() {
           name: "Teramo, Italy",
         },
         knowsLanguage: ["English", "Italian"],
-        sameAs: [
-          "https://github.com/pmpwith2i",
-          // "https://www.linkedin.com/in/federico-pomponii",
-        ],
+        sameAs: ["https://github.com/pmpwith2i"],
         alumniOf: {
           "@type": "EducationalOrganization",
           name: "University of Bologna",
@@ -230,8 +227,7 @@ export default function Home() {
               </p>
               <p className="text-lg leading-8 text-pretty">
                 I like the problems that do not come with a clean brief, and
-                turning that ambiguity into systems that hold up in
-                production.
+                turning that ambiguity into systems that hold up in production.
               </p>
               <p className="text-lg leading-8 text-pretty">
                 If you need someone who can shape the architecture, write the
@@ -257,36 +253,27 @@ export default function Home() {
               >
                 GitHub
               </a>
-              <span>•</span>
-              {/* <a
-                href="https://www.linkedin.com/in/federico-pomponii"
-                target="_blank"
-                rel="me noopener noreferrer"
-                className="underline transition-colors hover:bg-black hover:text-white"
-              >
-                LinkedIn
-              </a> */}
             </nav>
           </div>
         </section>
 
-        <section
-          aria-labelledby="blog-heading"
-          className="grid w-full max-w-4xl gap-8 border-t border-black/10 pt-12 md:grid-cols-[9rem_1fr]"
-        >
-          <h2
-            id="blog-heading"
-            className="text-sm font-normal uppercase tracking-[0.22em] text-gray-500"
+        {posts.length > 0 && (
+          <section
+            aria-labelledby="blog-heading"
+            className="grid w-full max-w-4xl gap-8 border-t border-black/10 pt-12 md:grid-cols-[9rem_1fr]"
           >
-            <Link
-              href="/blog"
-              className="transition-colors hover:text-black hover:underline"
+            <h2
+              id="blog-heading"
+              className="text-sm font-normal uppercase tracking-[0.22em] text-gray-500"
             >
-              Blog
-            </Link>
-          </h2>
+              <Link
+                href="/blog"
+                className="transition-colors hover:text-black hover:underline"
+              >
+                Blog
+              </Link>
+            </h2>
 
-          {posts.length > 0 ? (
             <ol className="divide-y divide-black/10">
               {posts.map((post, index) => (
                 <li
@@ -313,12 +300,8 @@ export default function Home() {
                 </li>
               ))}
             </ol>
-          ) : (
-            <p className="max-w-xl text-lg leading-relaxed text-gray-500">
-              No published notes yet.
-            </p>
-          )}
-        </section>
+          </section>
+        )}
       </main>
     </>
   );

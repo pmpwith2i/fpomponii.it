@@ -10,17 +10,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: siteUrl,
-      lastModified: new Date("2026-10-07"),
+      lastModified: new Date("2026-10-12"),
       changeFrequency: "monthly",
       priority: 1,
       images: [`${siteUrl}/federico-pomponii.jpg`],
     },
-    {
-      url: `${siteUrl}/blog`,
-      lastModified: new Date(latestPostDate),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
+    ...(posts.length > 0
+      ? [
+          {
+            url: `${siteUrl}/blog`,
+            lastModified: new Date(latestPostDate),
+            changeFrequency: "monthly" as const,
+            priority: 0.7,
+          },
+        ]
+      : []),
     ...posts.map((post) => ({
       url: `${siteUrl}/blog/${post.slug}`,
       lastModified: new Date(post.date),

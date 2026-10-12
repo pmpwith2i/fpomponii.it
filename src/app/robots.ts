@@ -7,6 +7,5 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
     },
     sitemap: "https://fpomponii.it/sitemap.xml",
-    host: "https://fpomponii.it",
   };
 }

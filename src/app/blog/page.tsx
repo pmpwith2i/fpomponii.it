@@ -5,14 +5,14 @@ import { formatPostDate, getBlogPosts } from "@/lib/blog";
 export const metadata: Metadata = {
   title: "Technical Writing - Federico Pomponii",
   description:
-    "Technical writing by Senior Full Stack AI Engineer Federico Pomponii on AI architecture, MCP security, distributed systems and production engineering.",
+    "Technical writing by Senior Full-Stack AI Engineer Federico Pomponii on AI architecture, MCP security, distributed systems and production engineering.",
   alternates: {
     canonical: "/blog",
   },
   openGraph: {
     title: "Technical Writing - Federico Pomponii",
     description:
-      "Notes from a hands-on software architect on production AI, MCP security, backend APIs and distributed systems.",
+      "Notes from a Senior Full-Stack AI Engineer on production AI, MCP security, backend APIs and distributed systems.",
     url: "/blog",
     type: "website",
   },
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     card: "summary",
     title: "Technical Writing - Federico Pomponii",
     description:
-      "Notes from a hands-on software architect on production AI, MCP security, backend APIs and distributed systems.",
+      "Notes from a Senior Full-Stack AI Engineer on production AI, MCP security, backend APIs and distributed systems.",
   },
 };
 

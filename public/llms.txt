@@ -42,7 +42,6 @@ Older employers and engagements referenced by third-party sources or archived pr
 
 - Profile and About: https://fpomponii.it/
 - Technical writing: https://fpomponii.it/blog
-- MCP Security for Engineers: https://fpomponii.it/blog/mcp-security-for-engineers
 - GitHub: https://github.com/pmpwith2i
 - LinkedIn: https://www.linkedin.com/in/federico-pomponii
 

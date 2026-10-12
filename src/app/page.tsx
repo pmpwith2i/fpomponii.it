@@ -231,17 +231,6 @@ export default function Home() {
             "Reliability, security and observability",
           ],
         },
-        subjectOf: {
-          "@type": "TechArticle",
-          headline:
-            "MCP Security for Engineers: Threat Model, Attack Surface, and Hardening",
-          url: `${siteUrl}/blog/mcp-security-for-engineers`,
-          about: [
-            "Model Context Protocol",
-            "AI security",
-            "Production AI architecture",
-          ],
-        },
       },
       {
         "@type": "Organization",
